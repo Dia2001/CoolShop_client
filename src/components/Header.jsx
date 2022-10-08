@@ -44,14 +44,14 @@ const Header = () => {
               alt="Avatar"
             />
           </div>
-          <button className="mx-1x py-2x px-3x text-center border border-solid border-BlackCool flex">
-            <p className="mx-2">Giỏ hàng</p>
-            <Cart color="green" />
-          </button>
-          <button className="mx-1x py-2x px-3x text-center border border-solid border-BlackCool flex">
-            <p className="mx-2">Yêu thích</p>
-            <Favorite color="red" />
-          </button>
+          <NavLink to="thanh-toan" className="mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex">
+            <h6 className="mx-2">Giỏ hàng</h6>
+            <Cart color="green" size={30} />
+          </NavLink>
+          <NavLink to="/gio-hang"className="mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex">
+            <h6 className="mx-2">Yêu thích</h6>
+            <Favorite color="red" size={30} />
+          </NavLink>
         </div>
       </div>
       <div className="flex justify-between pb-2x w-[1240px] mx-auto">
@@ -62,7 +62,7 @@ const Header = () => {
               onMouseEnter={leaveHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="font-semibold ml-4 mr-4">Trang chủ</p>
+              <h6 className="font-semibold ml-4 mr-4">Trang chủ</h6>
             </NavLink>
             <NavLink
               to="/san-pham"
@@ -70,7 +70,7 @@ const Header = () => {
              
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="font-semibold ml-4">Nam</p>
+              <h6 className="font-semibold ml-4">Nam</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -79,7 +79,7 @@ const Header = () => {
              
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="font-semibold ml-4">Nữ</p>
+              <h6 className="font-semibold ml-4">Nữ</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -88,7 +88,7 @@ const Header = () => {
             
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="font-semibold ml-4">Quý ông</p>
+              <h6 className="font-semibold ml-4">Quý ông</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -96,8 +96,8 @@ const Header = () => {
               onMouseEnter={leaveHandler}
               className="relative flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="absolute bottom-[15px] right-[-8px] px-2 bg-ErrorColor text-white">Hot</p>
-              <p className="font-semibold mx-4">Khuyến mãi</p>
+              <p className="absolute bottom-[15px] right-[-21px] px-2 bg-ErrorColor text-white">Hot</p>
+              <h6 className="font-semibold mx-4">Khuyến mãi</h6>
               
             </NavLink>
           </nav>

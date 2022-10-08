@@ -38,8 +38,8 @@ module.exports = {
         'GradientO2':'linear-gradient(to left,#0061FF 0%,#60EFFF 100%)',
       },
       colors:{
-        'Primary':'#395B64',
-        'MainBlue':'#395B64',
+        'Primary':'#A5C9CA',
+        'MainBlue':'#E7F6F2',
         'LightBlue':'#9CBBFC',
         'DarkBlue':'#4741A6',
        
@@ -51,7 +51,7 @@ module.exports = {
         'Black10':'#e9eaea',
         'Black5':'#f4f4f4',
 
-        'ErrorColor':'#e85353',
+        'ErrorColor':'#E85353',
         'WarningColor':'#F9CE69',
         'ActiveColor':'#A7D129'
       }
