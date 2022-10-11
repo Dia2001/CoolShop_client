@@ -73,7 +73,7 @@ const MenuTabLayout = ({ children }) => {
               Sản phẩm yêu thích
             </h6>
           </NavLink>
-
+          <NavLink to="/thong-tin-ca-nhan">
             <h6
               onClick={updateColorHandler}
               className={`${isChoose[2]&&'scale-110 underline underline-offset-2 text-LightBlue'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-LightBlue`}
@@ -81,7 +81,7 @@ const MenuTabLayout = ({ children }) => {
             >
               Thông tin cá nhân
             </h6>
-
+          </NavLink>
             <h6
               onClick={updateColorHandler}
               className={`${isChoose[3]&&'scale-110 underline underline-offset-2 text-WarningColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-WarningColor`}

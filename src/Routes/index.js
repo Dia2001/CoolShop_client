@@ -4,6 +4,7 @@ import Cart from "../pages/cart/Cart";
 import Favorite from "../pages/favorite/Favorite";
 import Home from "../pages/home/Home";
 import Product from "../pages/products/Product";
+import Profile from "../pages/profile/Profile";
 import Transition from "../pages/transition/Transition";
 
 
@@ -13,6 +14,7 @@ const publicRoutes=[
     {path:'/thanh-toan',component:Transition,layout:DefaultLayout},
     {path:'/gio-hang',component:Cart,layout:MenuTabLayout},
     {path:'/yeu-thich',component:Favorite,layout:MenuTabLayout},
+    {path:'/thong-tin-ca-nhan',component:Profile,layout:MenuTabLayout}
 
    
 ];
