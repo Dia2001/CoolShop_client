@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom';
 import CardProductV1 from '../../../components/CardProductV1';
 
 const ListProduct = () => {
@@ -22,7 +23,9 @@ const ListProduct = () => {
       <div className="grid grid-cols-10 gap-3 m-2x min-h-[768px]">
        {items.map((index, item) =>(
         <div key={index} className="col-span-2 shadow-sm hover:shadow-md">
+          <NavLink to="/san-pham/chi-tiet-san-pham">
            <CardProductV1/>
+          </NavLink>
         </div>
        ))}
       </div>

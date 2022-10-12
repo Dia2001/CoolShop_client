@@ -1,6 +1,7 @@
 import DefaultLayout from "../layouts/DefaultLayout";
 import MenuTabLayout from "../layouts/MenuTabLayout";
 import Cart from "../pages/cart/Cart";
+import DetailProduct from "../pages/detailproduct/DetailProduct";
 import Favorite from "../pages/favorite/Favorite";
 import Home from "../pages/home/Home";
 import Product from "../pages/products/Product";
@@ -14,8 +15,8 @@ const publicRoutes=[
     {path:'/thanh-toan',component:Transition,layout:DefaultLayout},
     {path:'/gio-hang',component:Cart,layout:MenuTabLayout},
     {path:'/yeu-thich',component:Favorite,layout:MenuTabLayout},
-    {path:'/thong-tin-ca-nhan',component:Profile,layout:MenuTabLayout}
-
+    {path:'/thong-tin-ca-nhan',component:Profile,layout:MenuTabLayout},
+    {path:'/san-pham/chi-tiet-san-pham', component:DetailProduct,layout: DefaultLayout}
    
 ];
 
