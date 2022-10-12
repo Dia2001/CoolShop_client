@@ -3,7 +3,6 @@ import { NavLink } from 'react-router-dom';
 import CardProductV1 from '../../../components/CardProductV1';
 
 const ListProduct = ({ products }) => {
-  console.log(products)
   return (
     <div className="col-span-10 ">
       <div className="flex justify-end m-2x gap-2 items-center">
@@ -20,7 +19,7 @@ const ListProduct = ({ products }) => {
       <div className="grid grid-cols-10 gap-3 m-2x min-h-[768px]">
         {products ? products.map((product, index) => (
           <div key={index} className="col-span-2 shadow-sm hover:shadow-md">
-            <NavLink to="/san-pham/chi-tiet-san-pham">
+            <NavLink to={`/san-pham/${product.productId}`}>
               <CardProductV1 product={product} />
             </NavLink>
           </div>
