@@ -1,8 +1,14 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { publicRoutes } from "./Routes";
+
 function App() {
+
+  useEffect(() => {
+    document.title = 'CoolShop'
+  }, [])
+
   return (
     <BrowserRouter>
       <Routes>
@@ -20,7 +26,7 @@ function App() {
               path={route.path}
               element={
                 <Layout>
-                  <Page/>
+                  <Page />
                 </Layout>
               }
             />
@@ -28,7 +34,7 @@ function App() {
         })}
       </Routes>
     </BrowserRouter>
-   
+
   );
 }
 
