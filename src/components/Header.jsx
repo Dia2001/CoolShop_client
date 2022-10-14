@@ -10,6 +10,7 @@ import {
 } from "react-icons/md";
 import imgModel from "../assets/anh-mau.jpg";
 import { Link, NavLink } from "react-router-dom";
+import MenuProfile from "./MenuProfile";
 const Header = () => {
   const [isShowPanel, setIsShowPanel] = useState(false);
   const enterHandler = () => {
@@ -18,11 +19,17 @@ const Header = () => {
   const leaveHandler = () => {
     setIsShowPanel(false);
   };
+  const [isShowProfile, setIsShowProfile] = useState(true);
+  const toggleShowProfile = () => {
+    setIsShowProfile(!isShowProfile);
+  }
   return (
     <div className="relative w-full">
+      <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={()=>setIsShowProfile(!isShowProfile)}/>
+
       <div className="flex justify-between w-[1240px] mx-auto">
         <NavLink to="/">
-        <img src={logo} alt="logo" className="h-[40px] m-2x" />
+          <img src={logo} alt="logo" className="h-[40px] m-2x" />
         </NavLink>
         <div className="search m-2x flex gap-2 items-center">
           <input
@@ -39,24 +46,37 @@ const Header = () => {
           <div className="flex gap-4 items-center">
             <h6 className="font-bold">Nhân</h6>
             <img
+              onClick={toggleShowProfile}
               src={defaultuser}
               className="h-[40px] w-[40px] rounded-full hover:shadow-md"
               alt="Avatar"
             />
           </div>
-          <NavLink to="thanh-toan" className="mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex">
+          <Link
+            to="/thanh-toan"
+            className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
+          >
+            <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
+              0
+            </h6>
             <h6 className="mx-2">Giỏ hàng</h6>
             <Cart color="green" size={30} />
-          </NavLink>
-          <NavLink to="/gio-hang"className="mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex">
+          </Link>
+          <Link
+            to="/gio-hang"
+            className="relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex"
+          >
+            <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
+              0
+            </h6>
             <h6 className="mx-2">Yêu thích</h6>
             <Favorite color="red" size={30} />
-          </NavLink>
+          </Link>
         </div>
       </div>
       <div className="flex justify-between pb-2x w-[1240px] mx-auto">
         <div className="m-1x">
-          <nav className="flex gap-6 items-center">
+          <nav className="flex gap-6 items-center h-[30px]">
             <NavLink
               to="/"
               onMouseEnter={leaveHandler}
@@ -67,7 +87,6 @@ const Header = () => {
             <NavLink
               to="/san-pham"
               onMouseEnter={enterHandler}
-             
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
               <h6 className="font-semibold ml-4">Nam</h6>
@@ -76,7 +95,6 @@ const Header = () => {
             <NavLink
               to="/san-pham"
               onMouseEnter={enterHandler}
-             
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
               <h6 className="font-semibold ml-4">Nữ</h6>
@@ -85,7 +103,6 @@ const Header = () => {
             <NavLink
               to="/san-pham"
               onMouseEnter={enterHandler}
-            
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
               <h6 className="font-semibold ml-4">Quý ông</h6>
@@ -96,9 +113,10 @@ const Header = () => {
               onMouseEnter={leaveHandler}
               className="relative flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <p className="absolute bottom-[15px] right-[-21px] px-2 bg-ErrorColor text-white">Hot</p>
+              <p className="absolute bottom-[15px] right-[-21px] px-2 bg-ErrorColor text-white">
+                Hot
+              </p>
               <h6 className="font-semibold mx-4">Khuyến mãi</h6>
-              
             </NavLink>
           </nav>
         </div>
@@ -114,7 +132,9 @@ const Header = () => {
       <div
         onMouseEnter={enterHandler}
         onMouseLeave={leaveHandler}
-        className={`${!isShowPanel&&"hidden"} flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
+        className={`${
+          !isShowPanel && "hidden"
+        } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
       >
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
@@ -125,27 +145,27 @@ const Header = () => {
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
-            <br/>
+            <br />
           </div>
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
-          <h6 className="font-bold">Đồ thể thao</h6>
-          <h6>AoDaiBo</h6>
+            <h6 className="font-bold">Đồ thể thao</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
-            <br/>
+            <h6>AoDaiBo</h6>
+            <br />
           </div>
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
-          <h6 className="font-bold">Áo</h6>
-          <h6>AoDaiBo</h6>
+            <h6 className="font-bold">Áo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
             <h6>AoDaiBo</h6>
-            <br/>
+            <h6>AoDaiBo</h6>
+            <br />
           </div>
         </div>
         <div></div>

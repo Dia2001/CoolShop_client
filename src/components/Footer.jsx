@@ -8,7 +8,7 @@ import phoneIcon from '../assets/phone-icon.png';
 const Footer = () => {
   return (
     <div className="w-[1240px] mx-auto">
-      <div className="flex">
+      <div className="flex mt-4x">
         <div className="flex-1 text-center border border-Black25">
           <h4 className="uppercase my-4x">Giới thiệu</h4>
           <h6>Về CoolShop</h6>
@@ -52,7 +52,7 @@ const Footer = () => {
         </div>
       </div>
       <div className="">
-        <div className="text-center h-[180px] mt-3x">
+        <div className="text-center h-[240px] mt-3x">
           <img src={logo} className=" h-[90px] mx-auto" alt="logo" />
         </div>
         <div className="border-t-2 border-Black10 text-center pt-1x pb-2x">
