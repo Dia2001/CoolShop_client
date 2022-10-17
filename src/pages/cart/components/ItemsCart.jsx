@@ -3,6 +3,9 @@ import {
   BsPencilSquare as Modify,
   BsFillCartDashFill as RemoveCart,
 } from "react-icons/bs";
+//thu vien them tooltip
+import Tippy from '@tippyjs/react';
+import 'tippy.js/dist/tippy.css'; // optional
 const ItemsCart = ({ item }) => {
   return (
     <div className="relative gap-2 flex shadow-md bg-white ">
@@ -18,12 +21,16 @@ const ItemsCart = ({ item }) => {
       </div>
       <div className="absolute bottom-1 right-2 flex justify-center items-center text-center gap-2">
         <h6 className="font-bold">{item.price}</h6>
+      <Tippy content={'Xóa sản phẩm'}>
         <button className="rounded-full hover:opacity-75 text-white bg-ErrorColor p-2">
           <RemoveCart size={20} />
         </button>
+      </Tippy>
+      <Tippy content={'Thay đổi sản phẩm'}>
         <button className="rounded-full hover:opacity-75  text-white bg-ActiveColor p-2">
           <Modify size={20} />
         </button>
+      </Tippy>
       </div>
       {/* input number */}
       <div class="custom-number-input h-10 w-32 absolute right-1 top-1">

@@ -48,7 +48,8 @@ const Product = () => {
       <div className="grid grid-cols-12 gap-4 w-[1240px] mx-auto">
         <div className=" col-span-2">
         </div>
-        <div className="col-span-10 ml-1">
+        {/* <div className="col-span-10 ml-1"> */}
+        <div className="flex justify-center">
           <Paginate totalPage={totalPage} currentPage={currentPage} callback={handlePaging} />
         </div>
       </div>

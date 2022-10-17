@@ -3,6 +3,7 @@ import FooterTransition from './components/FooterTransition'
 import img from "../../assets/product-o1.png";
 import ItemsCart from './components/ItemsCart';
 import HeaderCart from './components/HeaderCart';
+
 const Cart = () => {
   const listProduct = [
     //test code

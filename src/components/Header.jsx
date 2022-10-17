@@ -6,12 +6,15 @@ import { CgShoppingCart as Cart } from "react-icons/cg";
 import { MdFavoriteBorder as Favorite } from "react-icons/md";
 import {
   MdKeyboardArrowDown as ArrowD,
-  MdKeyboardArrowUp as ArrowU,
 } from "react-icons/md";
+
 import imgModel from "../assets/anh-mau.jpg";
+
 import { Link, NavLink } from "react-router-dom";
 import MenuProfile from "./MenuProfile";
+import NotificationCart from "./NotificationCart";
 const Header = () => {
+  const [isAuthenticated,setIsAuthenticated] =useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const enterHandler = () => {
     setIsShowPanel(true);
@@ -24,13 +27,13 @@ const Header = () => {
     setIsShowProfile(!isShowProfile);
   }
   return (
-    <div className="relative w-full">
+    <div className="sticky w-full transition top-0  bg-white shadow-sm z-40">
       <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={()=>setIsShowProfile(!isShowProfile)}/>
 
       <div className="flex justify-between w-[1240px] mx-auto">
-        <NavLink to="/">
+        <Link to="/">
           <img src={logo} alt="logo" className="h-[40px] m-2x" />
-        </NavLink>
+        </Link>
         <div className="search m-2x flex gap-2 items-center">
           <input
             type="text"
@@ -43,7 +46,7 @@ const Header = () => {
           </button>
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
-          <div className="flex gap-4 items-center">
+          <div className={`${isAuthenticated&&'hidden'} flex gap-4 items-center`}>
             <h6 className="font-bold">Nhân</h6>
             <img
               onClick={toggleShowProfile}
@@ -52,19 +55,39 @@ const Header = () => {
               alt="Avatar"
             />
           </div>
+          <div className={`${!isAuthenticated&&'hidden'} flex `}>
           <Link
+            to="/dang-nhap"
+            className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
+          >
+              <h6 className="text-DarkBlue">Đăng nhập</h6>
+            </Link>
+            <Link
+            to="/dang-ky"
+            className="relative mx-1x py-2x px-3x text-center items-center border-2  border-WarningColor flex"
+          >
+              <h6 className="text-WarningColor">Đăng ký</h6>
+            </Link>
+          </div>
+
+      <div className="relative">
+      <Link
             to="/thanh-toan"
             className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
           >
+           
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
               0
             </h6>
             <h6 className="mx-2">Giỏ hàng</h6>
+          {/*hien thong bao khi them san pham vao! */}
             <Cart color="green" size={30} />
           </Link>
+           <NotificationCart/>
+      </div>
           <Link
             to="/gio-hang"
-            className="relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex"
+            className={`${isAuthenticated&&'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
               0
