@@ -46,7 +46,7 @@ const Header = () => {
           </button>
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
-          <div className={`${isAuthenticated&&'hidden'} flex gap-4 items-center`}>
+          <div className={`${!isAuthenticated&&'hidden'} flex gap-4 items-center`}>
             <h6 className="font-bold">Nhân</h6>
             <img
               onClick={toggleShowProfile}
@@ -55,7 +55,7 @@ const Header = () => {
               alt="Avatar"
             />
           </div>
-          <div className={`${!isAuthenticated&&'hidden'} flex `}>
+          <div className={`${isAuthenticated&&'hidden'} flex `}>
           <Link
             to="/dang-nhap"
             className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
@@ -87,7 +87,7 @@ const Header = () => {
       </div>
           <Link
             to="/gio-hang"
-            className={`${isAuthenticated&&'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
+            className={`${!isAuthenticated&&'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
               0
