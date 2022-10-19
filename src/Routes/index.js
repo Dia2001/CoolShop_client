@@ -7,6 +7,7 @@ import Home from "../pages/home/Home";
 import Login from "../pages/login/Login";
 import Product from "../pages/products/Product";
 import Profile from "../pages/profile/Profile";
+import Register from "../pages/register/Register";
 import Transition from "../pages/transition/Transition";
 
 
@@ -18,7 +19,8 @@ const publicRoutes = [
   { path: '/yeu-thich', component: Favorite, layout: MenuTabLayout },
   { path: '/thong-tin-ca-nhan', component: Profile, layout: MenuTabLayout },
   { path: '/san-pham/:slug', component: DetailProduct, layout: DefaultLayout },
-  {path:'/dang-nhap',component:Login,layout: DefaultLayout}
+  {path:'/dang-nhap',component:Login,layout: DefaultLayout},
+  {path:'/dang-ky',component:Register,layout: DefaultLayout},
 
 ];
 
