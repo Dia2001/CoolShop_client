@@ -139,3 +139,11 @@ input[type='number']::-webkit-inner-spin-button,
   .custom-number-input button:focus {
     outline: none !important;
   }
+
+  /*Hover dropdown in avatar*/
+  .dropdown-pf{
+  display: none;
+  }
+  .avt:profile .dropdown-pf{
+  display: block;
+  }

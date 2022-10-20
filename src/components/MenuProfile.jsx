@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import imgAvatar from "../assets/avatar.jpg";
 import { AiOutlineDoubleRight as Arrow } from "react-icons/ai";
 import { BsUpload as Upload } from "react-icons/bs";
 const MenuProfile = ({isShowProfile,setIsShowProfile}) => {
- 
+  
   return (
     <div>
       <div onClick={setIsShowProfile} className={`${isShowProfile &&'hidden'} fixed top-0 left-0 w-full h-full bg-BlackCool/25 z-50`}></div>

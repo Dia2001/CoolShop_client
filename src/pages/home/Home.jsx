@@ -95,7 +95,7 @@ const Home = () => {
                 <div className="p-1x text-left w-[70%]">
                   <h5 className="font-bold">Chúng tôi luôn lắng nghe khách hàng!</h5>
                   <h6 className="text-Black75">Với mong muốn đem tới những trải nghiệm mua sắm
-                  tốt nhất, Biluxury rất mong nhận được những góp ý
+                  tốt nhất, CoolShop rất mong nhận được những góp ý
                   từ phái quý khách hàng để có thể nâng cao trải
                   nghiệm dịch vụ và sản phẩm tốt hơn nữa.
                   </h6>

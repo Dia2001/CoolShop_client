@@ -13,9 +13,11 @@ import imgModel from "../assets/anh-mau.jpg";
 import { Link, NavLink } from "react-router-dom";
 import MenuProfile from "./MenuProfile";
 import NotificationCart from "./NotificationCart";
+import HoverDropdown from "./HoverDropdown";
 const Header = () => {
-  const [isAuthenticated,setIsAuthenticated] =useState(false);
+  const [isAuthenticated,setIsAuthenticated] =useState(true);
   const [isShowPanel, setIsShowPanel] = useState(false);
+  const [hoverDropdown, setHoverDropdown] = useState(false);
   const enterHandler = () => {
     setIsShowPanel(true);
   };
@@ -25,6 +27,7 @@ const Header = () => {
   const [isShowProfile, setIsShowProfile] = useState(true);
   const toggleShowProfile = () => {
     setIsShowProfile(!isShowProfile);
+    setHoverDropdown(false);
   }
   return (
     <div className="sticky w-full transition top-0  bg-white shadow-sm z-40">
@@ -46,14 +49,17 @@ const Header = () => {
           </button>
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
-          <div className={`${!isAuthenticated&&'hidden'} flex gap-4 items-center`}>
+          <div className={`${!isAuthenticated&&'hidden'} relative flex gap-4 items-center`}>
             <h6 className="font-bold">Nhân</h6>
             <img
               onClick={toggleShowProfile}
+              onMouseEnter={()=>setHoverDropdown(true)}
+              onM
               src={defaultuser}
-              className="h-[40px] w-[40px] rounded-full hover:shadow-md"
+              className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-10"
               alt="Avatar"
             />
+            <HoverDropdown isVisible={hoverDropdown} setIsVisible={()=>setHoverDropdown(false)}/>
           </div>
           <div className={`${isAuthenticated&&'hidden'} flex `}>
           <Link

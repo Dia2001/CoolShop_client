@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, useLocation } from "react-router-dom";
 import DefaultLayout from "./DefaultLayout";
 const MenuTabLayout = ({ children }) => {
 
   const [isChoose,SetIsChoose] = useState([false,false,false,false]);
   const setChooseOnly=(n)=>{
-      const tmp=isChoose
-      if(n!=null)
-      for(let i=0;i<tmp.length;i++){
-        if(n!==i){
-          tmp[i]=false;
-        }
-        else
-          tmp[i]=true;
-      }
-      SetIsChoose(tmp);
+      // const tmp=isChoose
+      // if(n!=null)
+      // for(let i=0;i<tmp.length;i++){
+      //   if(n!==i){
+      //     tmp[i]=false;
+      //   }
+      //   else
+      //     tmp[i]=true;
+      // }
+      // SetIsChoose(tmp);
   }
 
   //Toi muon dung mau thoi de tai sung dung nhung cach thiet lap rieng biet opacity khong duoc sai!
@@ -50,6 +50,29 @@ const MenuTabLayout = ({ children }) => {
         setChooseOnly(0);
     }
   };
+  const location = useLocation();
+
+  let currentPath=location.pathname;
+  useEffect(
+    ()=>{
+     switch(currentPath){
+      case "/gio-hang":
+        SetIsChoose([true,false,false,false]);
+        break;
+        case "/yeu-thich":
+          SetIsChoose([false,true,false,false]);
+          break;
+          case "/thong-tin-ca-nhan":
+            SetIsChoose([false,false,true,false]);
+          break;
+          case "/lich-su-mua-hang":
+            SetIsChoose([false,false,false,true]);
+          break;
+          default:
+            SetIsChoose([true,false,false,false]);
+     }
+    }
+  ,[currentPath])
   return (
     <DefaultLayout>
       <div className={`w-full ${colorBg}`}>
@@ -82,6 +105,7 @@ const MenuTabLayout = ({ children }) => {
               Thông tin cá nhân
             </h6>
           </NavLink>
+          <NavLink to="/lich-su-mua-hang">
             <h6
               onClick={updateColorHandler}
               className={`${isChoose[3]&&'scale-110 underline underline-offset-2 text-WarningColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-WarningColor`}
@@ -89,6 +113,7 @@ const MenuTabLayout = ({ children }) => {
             >
               Đơn hàng
             </h6>
+          </NavLink>
           </div>
           {children}
         </div>
