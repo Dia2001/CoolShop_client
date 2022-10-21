@@ -4,7 +4,7 @@ import DefaultLayout from "./DefaultLayout";
 const MenuTabLayout = ({ children }) => {
 
   const [isChoose,SetIsChoose] = useState([false,false,false,false]);
-  const setChooseOnly=(n)=>{
+  const setChooseOnly=(n)=>{//hàm đã cũ nhưng không xóa, tránh xảy ra lỗi
       // const tmp=isChoose
       // if(n!=null)
       // for(let i=0;i<tmp.length;i++){
@@ -26,29 +26,29 @@ const MenuTabLayout = ({ children }) => {
   ];
 
   const [colorBg, setColorBg] = useState(colorsBg[0]);
-  const updateColorHandler = (e) => {
-    let id = e.target.id;
-    switch (id) {
-      case "gh":
-        setColorBg(colorsBg[0]);
-        setChooseOnly(0);
-        break;
-      case "yt":
-        setColorBg(colorsBg[1]);
-        setChooseOnly(1);
-        break;
-      case "tt":
-        setColorBg(colorsBg[2]);
-        setChooseOnly(2);
-        break;
-      case "dh":
-        setColorBg(colorsBg[3]);
-        setChooseOnly(3);
-        break;
-      default:
-        setColorBg(colorsBg[0]);
-        setChooseOnly(0);
-    }
+  const updateColorHandler = (e) => {//hàm đã cũ nhưng không xóa, tránh xảy ra lỗi
+    // let id = e.target.id;
+    // switch (id) {
+    //   case "gh":
+    //     setColorBg(colorsBg[0]);
+    //     setChooseOnly(0);
+    //     break;
+    //   case "yt":
+    //     setColorBg(colorsBg[1]);
+    //     setChooseOnly(1);
+    //     break;
+    //   case "tt":
+    //     setColorBg(colorsBg[2]);
+    //     setChooseOnly(2);
+    //     break;
+    //   case "dh":
+    //     setColorBg(colorsBg[3]);
+    //     setChooseOnly(3);
+    //     break;
+    //   default:
+    //     setColorBg(colorsBg[0]);
+    //     setChooseOnly(0);
+    // }
   };
   const location = useLocation();
 
@@ -58,18 +58,23 @@ const MenuTabLayout = ({ children }) => {
      switch(currentPath){
       case "/gio-hang":
         SetIsChoose([true,false,false,false]);
+        setColorBg(colorsBg[0]);
         break;
         case "/yeu-thich":
           SetIsChoose([false,true,false,false]);
+          setColorBg(colorsBg[1]);
           break;
           case "/thong-tin-ca-nhan":
             SetIsChoose([false,false,true,false]);
+            setColorBg(colorsBg[2]);
           break;
           case "/lich-su-mua-hang":
             SetIsChoose([false,false,false,true]);
+            setColorBg(colorsBg[3]);
           break;
           default:
             SetIsChoose([true,false,false,false]);
+            setColorBg(colorsBg[0]);
      }
     }
   ,[currentPath])
