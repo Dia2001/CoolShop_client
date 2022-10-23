@@ -16,7 +16,7 @@ const IntroProduct = () => {
       setStatrt(startsTmp)
       setRate(product.rate)
     }
-  }, [])
+  }, [product])
 
   return (
     <div>

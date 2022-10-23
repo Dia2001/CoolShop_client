@@ -16,7 +16,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
     } else {
       setIsCanChange(false)
     }
-  }, [quantity])
+  }, [quantity, colorIdSelected, sizeIdSelected])
 
   const handleChangeQuantity = (number) => {
     const regexQuantity = /^\d+$/
@@ -52,7 +52,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
               min={0}
               max={quantity}
               readOnly={!isCanChange}
-              className="outline-none focus:outline-none text-center w-full bg-white border border-Black10 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+              className="focus:outline-none text-center w-full bg-white border border-Black10 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 outline-none"
               name="custom-input-number"
               value={quantityOrder}
               onChange={(e) => handleChangeQuantity(e.target.value)}
