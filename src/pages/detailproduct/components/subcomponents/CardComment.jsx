@@ -3,8 +3,9 @@ import imgAvatar from "../../../../assets/avatar.jpg";
 import imgO3 from '../../../../assets/product-o3.jpg';
 import imgO4 from '../../../../assets/product-o4.jpg'
 import { MdStar as Star } from "react-icons/md";
-import {BiLike as Like} from 'react-icons/bi';
-import {BiMessageDetail as Message} from 'react-icons/bi'
+import { BiLike as Like } from 'react-icons/bi';
+import { BiMessageDetail as Message } from 'react-icons/bi'
+
 const CardComment = () => {
   const votesStarDemo = [1, 1, 1, 1, 1];
   return (
@@ -31,15 +32,15 @@ const CardComment = () => {
           Sản phẩm rất tốt!
         </div>
         <div className="ml-5x flex gap-4 items-center">
-       <div className="text-LightBlue gap-1 flex items-center">
-            <Like size={25}/>
+          <div className="text-LightBlue gap-1 flex items-center">
+            <Like size={25} />
             <h6>1</h6>
-       </div>
-       <div className="text-ActiveColor gap-1 flex items-center">
-            <Message size={25}/>
+          </div>
+          <div className="text-ActiveColor gap-1 flex items-center">
+            <Message size={25} />
             <h6>1</h6>
-       </div>
-      </div>
+          </div>
+        </div>
       </div>
       <div className="flex m-1 gap-4">
         <img src={imgO3} alt="anh 1" className="object-cover w-[130px] h-[136px]" />

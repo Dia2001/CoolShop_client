@@ -6,7 +6,7 @@ import DescriptionProduct from "./components/DescriptionProduct";
 import HeaderDetailProduct from "./components/HeaderDetailProduct";
 import ImageProduct from "./components/ImageProduct";
 import ReviewProduct from "./components/ReviewProduct";
-import ProductContext from './ProductContext'
+import ProductDetailContext from './ProductDetailContext'
 
 const DetailProduct = () => {
 
@@ -28,7 +28,7 @@ const DetailProduct = () => {
   }
 
   return (
-    <ProductContext product={product}>
+    <ProductDetailContext product={product}>
       <div className="bg-LightBlue/5">
         <div className="w-[1240px] mx-auto py-4x">
           <HeaderDetailProduct />
@@ -40,7 +40,7 @@ const DetailProduct = () => {
           <ReviewProduct />
         </div>
       </div>
-    </ProductContext>
+    </ProductDetailContext>
   );
 };
 

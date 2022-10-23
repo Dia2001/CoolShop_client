@@ -1,18 +1,18 @@
 import React from 'react'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
+import { ProductContextProvider } from '../Providers/ProductContext'
 
+const DefaultLayout = ({ children }) => {
 
-const DefaultLayout = ({children}) => {
- 
   return (
-    <div>
-     
-        <Header/>
-        <div>{children}</div>
-        <Footer/>
-        
-    </div>
+    <ProductContextProvider>
+
+      <Header />
+      <div>{children}</div>
+      <Footer />
+
+    </ProductContextProvider>
   )
 }
 

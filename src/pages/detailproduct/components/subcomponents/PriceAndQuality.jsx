@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { ProductContext } from '../../ProductContext'
+import { ProductDetailContext } from '../../ProductDetailContext'
 import { enPriceVnd } from '../../../../utils'
 
 const PriceAndQuality = () => {
-  const { product } = useContext(ProductContext)
+  const { product } = useContext(ProductDetailContext)
 
   return (
     <div className="flex justify-between p-1x border items-center">

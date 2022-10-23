@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { MdFavoriteBorder as Heart, MdOutlineRemoveRedEye as Eye, MdStar as Star } from 'react-icons/md'
-import { ProductContext } from '../../ProductContext'
+import { ProductDetailContext } from '../../ProductDetailContext'
 
 const IntroProduct = () => {
-  const { product } = useContext(ProductContext)
+  const { product } = useContext(ProductDetailContext)
   const listStar = [1, 1, 1, 1, 1];
 
   return (

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import imgProduct from "../../../assets/product-o1.png";
 import config from "../../../config";
-import { ProductContext } from '../ProductContext'
+import { ProductDetailContext } from '../ProductDetailContext'
 
 const ImageProduct = () => {
-  const { product } = useContext(ProductContext)
+  const { product } = useContext(ProductDetailContext)
 
   return (
     <div className="w-[430px] px-2x">
