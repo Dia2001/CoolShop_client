@@ -72,9 +72,40 @@ async function getById(id) {
   }
 }
 
+async function getQuantityProductById(productId) {
+  try {
+    const response = await fetch(`${config.BASE_API}/products/quantity/${productId}`, {
+      method: 'GET',
+      headers: getHeaders()
+    })
+
+    const result = await response.json()
+
+    if (response.status === 200) {
+      return {
+        success: true,
+        data: result
+      }
+    } else {
+      return {
+        success: false,
+        data: result
+      }
+    }
+
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false,
+      data: ''
+    }
+  }
+}
+
 const ProductService = {
   getFilter,
-  getById
+  getById,
+  getQuantityProductById
 }
 
 export default ProductService

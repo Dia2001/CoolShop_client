@@ -13,10 +13,11 @@ const DetailProduct = () => {
   const params = useParams()
   const productSlug = params.slug
   const [product, setProduct] = useState()
+  const [quantities, setQuanttities] = useState([])
 
   useEffect(() => {
     fetchApiGetProduct(productSlug)
-  })
+  }, [])
 
   const fetchApiGetProduct = async (productId) => {
     const result = await ProductService.getById(productId)
@@ -24,11 +25,16 @@ const DetailProduct = () => {
     if (result.success) {
       setProduct(result.data)
       document.title = result.data.name
+      const resultQuantity = await ProductService.getQuantityProductById(result.data.productId)
+
+      if (resultQuantity.success) {
+        setQuanttities(resultQuantity.data)
+      }
     }
   }
 
   return (
-    <ProductDetailContext product={product}>
+    <ProductDetailContext product={product} quantities={quantities}>
       <div className="bg-LightBlue/5">
         <div className="w-[1240px] mx-auto py-4x">
           <HeaderDetailProduct />
@@ -36,7 +42,7 @@ const DetailProduct = () => {
             <ImageProduct />
             <ContentProduct />
           </div>
-          <DescriptionProduct />
+          <DescriptionProduct product={product} />
           <ReviewProduct />
         </div>
       </div>

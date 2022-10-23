@@ -1,10 +1,22 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MdFavoriteBorder as Heart, MdOutlineRemoveRedEye as Eye, MdStar as Star } from 'react-icons/md'
 import { ProductDetailContext } from '../../ProductDetailContext'
 
 const IntroProduct = () => {
   const { product } = useContext(ProductDetailContext)
-  const listStar = [1, 1, 1, 1, 1];
+  const [rate, setRate] = useState('')
+  const [starts, setStatrt] = useState([])
+
+  useEffect(() => {
+    if ((product && (product.rate !== 0 || product.rate !== ''))) {
+      const startsTmp = []
+      for (let i = 1; i <= Number.parseInt(product.rate); i++) {
+        startsTmp.push(i)
+      }
+      setStatrt(startsTmp)
+      setRate(product.rate)
+    }
+  }, [])
 
   return (
     <div>
@@ -21,9 +33,16 @@ const IntroProduct = () => {
           <Eye size={20} />
         </div>
         <div className="flex gap-1 item-center text-WarningColor">
-          {listStar.map((item, index) => (
-            <Star size={20} />
-          ))}
+          {(product && !(product.rate === 0 || product.rate === '')) ?
+            <>
+              <h4 className="font-bold mr-2">{rate}</h4>
+              <div className="flex items-center">
+                {starts.map((item, index) => {
+                  return <Star key={index} />
+                })}
+              </div>
+            </>
+            : 'Chưa có đánh giá'}
         </div>
       </div>
     </div>

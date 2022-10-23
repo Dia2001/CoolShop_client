@@ -1,56 +1,106 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   MdKeyboardArrowDown as ArrowD,
   MdKeyboardArrowUp as ArrowU,
 } from "react-icons/md";
+import { ProductContext } from '../../../../Providers/ProductContext'
 import { ProductDetailContext } from '../../ProductDetailContext'
 
-const OptionsProduct = () => {
-  const { product } = useContext(ProductDetailContext)
+const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, setSizeIdSelected }) => {
+  const { findColorById, findSizeById } = useContext(ProductContext)
+  const { product, quantities, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
+  const [colors, setColors] = useState([])
+  const [sizes, setSizes] = useState([])
 
   const [isToggle, setIsToggle] = useState(false);
-  const colors = ["#f9ce69", "#e85353", "#a7d129", "#000000", "#2C3333"];
-  const materials = [
-    "Cotton",
-    "Colmax",
-    "Cotton",
-    "Pique",
-  ];
-  const size = ["XS", "XS", "XS", "XS", "XS", "XS", "XS"];
+
+  useEffect(() => {
+    if (product) {
+      const colorsTmp = []
+      const sizesTmp = []
+
+      product.detail.colors.forEach(colorId => {
+        const color = findColorById(colorId)
+        if (color) {
+          colorsTmp.push(color)
+        }
+      })
+      product.detail.sizes.forEach(sizeId => {
+        const size = findSizeById(sizeId)
+        if (size) {
+          sizesTmp.push(size)
+        }
+      })
+
+      setColors(colorsTmp)
+      setSizes(sizesTmp)
+    }
+  }, [product, quantities])
+
   const toggleHandler = () => {
     setIsToggle(!isToggle);
   };
+
+  const handleSelectColor = (colorId) => {
+    if (colorIdSelected === colorId) {
+      setColorIdSelected(undefined)
+    } else {
+      setColorIdSelected(colorId)
+    }
+  }
+
+  const handleSelectSize = (sizeId) => {
+    if (sizeIdSelected === sizeId) {
+      setSizeIdSelected(undefined)
+    } else {
+      setSizeIdSelected(sizeId)
+    }
+  }
+
   return (
     <div className="flex p-2x border my-2x">
       <div className="flex-1">
         <h6>Màu sắc:</h6>
-        <div className="grid grid-cols-4 grid-row-3 gap-2 w-[40%] ">
-          {colors.map((item, index) => (
-            //khong bk truyen item vao classnam ra sao
-            <button
+        <div className="flex flex-wrap w-[80%] ">
+          {colors.map((item, index) => {
+            let isDisabled = false
+            if (sizeIdSelected) {
+              if (getQuantityByColorIdAndSizeId(item.colorId, sizeIdSelected) === 0) {
+                isDisabled = true
+              }
+            }
+            if (product.totalQuantity === 0) {
+              isDisabled = true
+            }
+            return <button
               key={index}
-              style={{ background: item }}
-              className={`rounded-full h-[30px] w-[30px] focus:border focus:border-DarkBlue hover:opacity-75`}
-            >
-              {/* Nen truyen ma mau vao day va khong de hien thi */}
+              disabled={isDisabled}
+              // style={{ background: item }}
+              className={`rounded-lg ml-2 mb-2 px-1 h-[30px] border border-Black75 w-auto ${isDisabled ? 'cursor-not-allowed' : 'hover:opacity-75'}  ${(colorIdSelected === item.colorId && !isDisabled) ? 'bg-Black75 text-white' : ''}`}
+              onClick={() => handleSelectColor(item.colorId)}
+            >{item.colorId}
             </button>
-          ))}
+          })}
         </div>
-        {/*}<h6>Chất liệu:</h6>
-        <div className="flex w-[50%] m-1x flex-wrap gap-1">
-          {materials.map((item, index) => (
-            <button className="bg-Black10 hover:bg-Black25 px-1x py-1 rounded-md focus:bg-Black75 focus:text-white italic">
-              <p>{item}</p>
-            </button>
-          ))}
-        </div>*/}
         <h6>Size:</h6>
-        <div className="flex flex-wrap w-[50%] gap-1 m-1x">
-          {size.map((item, index) => (
-            <button key={index} className="h-[30px] w-[30px] text-Black75 rounded-full border border-Black75 hover:bg-Black10 focus:bg-Black75 focus:text-white">
-              {item}
+        <div className="flex flex-wrap w-[80%] gap-1 m-1x">
+          {sizes.map((item, index) => {
+            let isDisabled = false
+            if (colorIdSelected) {
+              if (getQuantityByColorIdAndSizeId(colorIdSelected, item.sizeId) === 0) {
+                isDisabled = true
+              }
+            }
+            if (product.totalQuantity === 0) {
+              isDisabled = true
+            }
+            return <button key={index}
+              disabled={isDisabled}
+              className={`h-[40px] w-[40px] rounded-full border border-Black75 ${isDisabled ? 'cursor-not-allowed' : 'hover:bg-Black10'}  ${(sizeIdSelected === item.sizeId && !isDisabled) ? 'bg-Black75 text-white' : 'text-Black75 '}`}
+              onClick={() => handleSelectSize(item.sizeId)}>
+              {item.name}
             </button>
-          ))}
+          })}
         </div>
       </div>
       <div
@@ -65,7 +115,7 @@ const OptionsProduct = () => {
             <ArrowD size={30} onClick={toggleHandler} />
           )}{" "}
         </div>
-        <div className="min-h-[230px] p-1x"></div>
+        <div className="min-h-[230px] p-1x">{product ? product.description : ''}</div>
       </div>
     </div>
   );
