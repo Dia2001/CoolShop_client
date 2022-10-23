@@ -3,11 +3,12 @@ import {
   MdKeyboardArrowDown as ArrowD,
   MdKeyboardArrowUp as ArrowU,
 } from "react-icons/md";
+import { Link } from "react-router-dom";
 import { ProductContext } from '../../../../Providers/ProductContext'
 import { ProductDetailContext } from '../../ProductDetailContext'
 
 const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, setSizeIdSelected }) => {
-  const { findColorById, findSizeById } = useContext(ProductContext)
+  const { isChange, findCategoryById, findColorById, findSizeById, findBrandById } = useContext(ProductContext)
   const { product, quantities, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
   const [colors, setColors] = useState([])
   const [sizes, setSizes] = useState([])
@@ -35,7 +36,7 @@ const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, s
       setColors(colorsTmp)
       setSizes(sizesTmp)
     }
-  }, [product, quantities])
+  }, [product, quantities, isChange])
 
   const toggleHandler = () => {
     setIsToggle(!isToggle);
@@ -115,7 +116,20 @@ const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, s
             <ArrowD size={30} onClick={toggleHandler} />
           )}{" "}
         </div>
-        <div className="min-h-[230px] p-1x">{product ? product.description : ''}</div>
+        <div className="min-h-[230px] p-1x">
+          <div className="font-bold">
+            - Nhãn hiệu: {(product && findBrandById(product.brandId)) ? findBrandById(product.brandId).name : ''}
+          </div>
+          <div className="font-bold">
+            - Danh mục: {product ? product.categories.map((categoryId, index) => {
+              let category = findCategoryById(categoryId)
+              if (category) {
+                return <Link key={index} className='mx-2 px-2 py-1 border rounded-lg font-normal' >{category.name}</Link>
+              }
+              return ''
+            }) : ''}
+          </div>
+          {product ? product.description : ''}</div>
       </div>
     </div>
   );

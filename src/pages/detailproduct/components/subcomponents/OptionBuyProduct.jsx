@@ -21,7 +21,14 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
   const handleChangeQuantity = (number) => {
     const regexQuantity = /^\d+$/
     if (regexQuantity.test(number)) {
-      setQuantityOrder(Number.parseInt(number))
+      let num = Number.parseInt(number)
+      if (num < 0) {
+        setQuantityOrder(0)
+      } else if (num > quantity) {
+        setQuantityOrder(quantity)
+      } else {
+        setQuantityOrder(num)
+      }
     } else {
       setQuantityOrder('')
     }

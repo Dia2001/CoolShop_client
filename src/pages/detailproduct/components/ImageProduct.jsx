@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import imgProduct from "../../../assets/product-o1.png";
 import config from "../../../config";
 import { ProductDetailContext } from '../ProductDetailContext'
 

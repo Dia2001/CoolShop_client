@@ -12,6 +12,7 @@ const ProductContextProvider = ({ children }) => {
   const [colors, setColors] = useState([])
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
+  const [isChange, setIsChange] = useState(1)
 
   useEffect(() => {
     initData()
@@ -22,6 +23,7 @@ const ProductContextProvider = ({ children }) => {
     await fetchApiGetAllBrand()
     await fetchApiGetAllColor()
     await fetchApiGetAllCategory()
+    setIsChange(prev => prev + 1)
   }
 
   const fetchApiGetAllCategory = async () => {
@@ -56,6 +58,10 @@ const ProductContextProvider = ({ children }) => {
     return colors.find(color => color.colorId === colorId)
   }
 
+  const findBrandById = (brandId) => {
+    return brands.find(brand => brand.brandId === brandId)
+  }
+
   return (
     <ProductContext.Provider value={{
       brands,
@@ -64,7 +70,9 @@ const ProductContextProvider = ({ children }) => {
       sizes,
       findCategoryById,
       findSizeById,
-      findColorById
+      findColorById,
+      findBrandById,
+      isChange
     }}>
       {children}
     </ProductContext.Provider>

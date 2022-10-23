@@ -6,7 +6,7 @@ import PriceAndQuality from "./subcomponents/PriceAndQuality";
 import { ProductDetailContext } from '../ProductDetailContext'
 
 const ContentProduct = () => {
-  const { product, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
+  const { product, quantities, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
 
   const [colorIdSelected, setColorIdSelected] = useState()
   const [sizeIdSelected, setSizeIdSelected] = useState()
@@ -21,7 +21,7 @@ const ContentProduct = () => {
         setQuantity(product.totalQuantity)
       }
     }
-  }, [sizeIdSelected, colorIdSelected, product])
+  }, [sizeIdSelected, colorIdSelected, product, quantities])
 
   return (
     <div className="grow p-2x mt-1 border-l">

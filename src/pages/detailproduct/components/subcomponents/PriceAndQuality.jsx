@@ -7,7 +7,9 @@ const PriceAndQuality = ({ quantity }) => {
   const [status, setStatus] = useState('Hết hàng')
 
   useEffect(() => {
-    if (quantity > 0) {
+    if (quantity > 10) {
+      setStatus('Còn hàng')
+    } else if (quantity > 0) {
       setStatus(quantity)
     } else {
       setStatus('Hết hàng')

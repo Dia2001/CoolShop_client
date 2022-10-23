@@ -1,19 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { MdFavoriteBorder as Heart, MdOutlineRemoveRedEye as Eye, MdStar as Star } from 'react-icons/md'
+import { MdFavoriteBorder as Heart, MdOutlineRemoveRedEye as Eye, MdStar as Star, MdStarHalf, MdStarOutline } from 'react-icons/md'
 import { ProductDetailContext } from '../../ProductDetailContext'
 
 const IntroProduct = () => {
   const { product } = useContext(ProductDetailContext)
   const [rate, setRate] = useState('')
-  const [starts, setStatrt] = useState([])
+  const [stars, setStars] = useState([])
 
   useEffect(() => {
     if ((product && (product.rate !== 0 || product.rate !== ''))) {
-      const startsTmp = []
+      const starsTmp = []
       for (let i = 1; i <= Number.parseInt(product.rate); i++) {
-        startsTmp.push(i)
+        starsTmp.push(1)
       }
-      setStatrt(startsTmp)
+      const overfflow = 5 - starsTmp.length
+
+      if (Number.parseInt((rate - Number.parseInt(rate)) * 10) >= 5) {
+        starsTmp.push(-1)
+      } else {
+        starsTmp.push(0)
+      }
+
+      for (let i = 1; i < overfflow; i++) {
+        starsTmp.push(0)
+      }
+
+      setStars(starsTmp)
       setRate(product.rate)
     }
   }, [product])
@@ -37,8 +49,14 @@ const IntroProduct = () => {
             <>
               <h4 className="font-bold mr-2">{rate}</h4>
               <div className="flex items-center">
-                {starts.map((item, index) => {
-                  return <Star key={index} />
+                {stars.map((item, index) => {
+                  if (item === 1) {
+                    return <Star key={index} />
+                  } else if (item === 0) {
+                    return <MdStarOutline key={index} />
+                  } else {
+                    return <MdStarHalf key={index} />
+                  }
                 })}
               </div>
             </>
