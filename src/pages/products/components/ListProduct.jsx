@@ -16,12 +16,12 @@ const ListProduct = ({ products }) => {
           <option value="newer">Mới nhất</option>
         </select>
       </div>
-      <div className="grid grid-cols-10 gap-3 m-2x min-h-[768px]">
+      <div className="grid grid-cols-10 grid-rows-3 gap-3 m-2x min-h-[768px]">
         {products ? products.map((product, index) => (
           <div key={index} className="col-span-2 shadow-sm hover:shadow-md">
             <NavLink to={`/san-pham/${product.slug}`}>
               <CardProductV1 product={product} />
-            </NavLink>
+              </NavLink>
           </div>
         )) : ''}
       </div>

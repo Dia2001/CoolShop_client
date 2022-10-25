@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import ScrollToTop from "./components/ScrollToTop";
 import DefaultLayout from "./layouts/DefaultLayout";
 import { publicRoutes } from "./Routes";
 
@@ -26,6 +27,7 @@ function App() {
               path={route.path}
               element={
                 <Layout>
+                  <ScrollToTop/>
                   <Page />
                 </Layout>
               }

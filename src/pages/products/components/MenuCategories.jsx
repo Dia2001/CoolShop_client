@@ -40,8 +40,8 @@ const MenuCategories = () => {
   ];
   return (
     <div className="w-[1240px] mx-auto text-center">
-      <h3 className="font-bold text-MainBlue">Quần Jean Nam</h3>
-      <h4 className="font-bold text-DarkBlue">Danh mục</h4>
+      <h3 className="font-bold text-DarkBlue">Quần Jean Nam</h3>
+      <h4 className="font-bold text-LightBlue">Danh mục</h4>
       <div className="flex gap-2 justify-center">
         {/* tooltips has failed */}
         {Categories.map((item,index) => (

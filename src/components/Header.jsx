@@ -18,9 +18,16 @@ const Header = () => {
   const [isAuthenticated,setIsAuthenticated] =useState(true);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const [hoverDropdown, setHoverDropdown] = useState(false);
+  const [closeTabs,setCloseTabs] = useState(false);
+  
   const enterHandler = () => {
     setIsShowPanel(true);
+    setCloseTabs(false);
   };
+  const CloseTabsHandler = () => {
+    setCloseTabs(true);
+    setIsShowPanel(false);
+  }
   const leaveHandler = () => {
     setIsShowPanel(false);
   };
@@ -56,7 +63,7 @@ const Header = () => {
               onMouseEnter={()=>setHoverDropdown(true)}
               onM
               src={defaultuser}
-              className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-10"
+              className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
               alt="Avatar"
             />
             <HoverDropdown isVisible={hoverDropdown} setIsVisible={()=>setHoverDropdown(false)}/>
@@ -104,7 +111,7 @@ const Header = () => {
         </div>
       </div>
       <div className="flex justify-between pb-2x w-[1240px] mx-auto">
-        <div className="m-1x">
+        <div className="m-1x z-30">
           <nav className="flex gap-6 items-center h-[30px]">
             <NavLink
               to="/"
@@ -118,7 +125,7 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 className="font-semibold ml-4">Nam</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Nam</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -126,7 +133,7 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 className="font-semibold ml-4">Nữ</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Nữ</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -134,7 +141,7 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 className="font-semibold ml-4">Quý ông</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Quý ông</h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -165,6 +172,7 @@ const Header = () => {
           !isShowPanel && "hidden"
         } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
       >
+        <div className={`${closeTabs&&'hidden'} absolute w-full h-[60px] top-[-60px] left-0`}></div>
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
             <h6 className="font-bold">Áo</h6>
