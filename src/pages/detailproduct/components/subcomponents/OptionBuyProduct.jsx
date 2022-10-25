@@ -3,7 +3,7 @@ import { MdFavoriteBorder as Heart } from 'react-icons/md'
 import { BsShieldFillCheck as Shield, BsArrowLeftRight as Return } from 'react-icons/bs'
 import { GiCardboardBoxClosed as Box } from 'react-icons/gi'
 
-const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
+const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAddToCart }) => {
   const [quantityOrder, setQuantityOrder] = useState(0)
   const [isCanChange, setIsCanChange] = useState(false)
 
@@ -32,10 +32,6 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
     } else {
       setQuantityOrder('')
     }
-  }
-
-  const handleAddToCart = () => {
-
   }
 
   const handleOrder = () => {
