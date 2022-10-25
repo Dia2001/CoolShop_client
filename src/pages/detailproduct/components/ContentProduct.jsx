@@ -24,8 +24,8 @@ const ContentProduct = () => {
     }
   }, [sizeIdSelected, colorIdSelected, product, quantities])
 
-  const handleAddToCart = async () => {
-    const result = await CartService.addProductToCart(product.productId, sizeIdSelected, colorIdSelected, quantity)
+  const handleAddToCart = async (quantityOrder) => {
+    const result = await CartService.addProductToCart(product.productId, sizeIdSelected, colorIdSelected, quantityOrder)
     if (result.success) {
       alert("Thêm sản phẩm vào giỏ hảng thành công")
     }
