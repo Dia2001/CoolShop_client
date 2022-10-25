@@ -34,10 +34,21 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
     }
   }
 
+  const handleAddToCart = () => {
+
+  }
+
+  const handleOrder = () => {
+
+  }
+
   return (
     <div>
       <div className="flex justify-evenly py-1x items-start">
-        <button className="px-5x py-2x bg-ActiveColor hover:opacity-75 text-white font-bold">
+        <button
+          disabled={!isCanChange || quantityOrder === quantity}
+          onClick={handleAddToCart}
+          className={`px-5x py-2x bg-ActiveColor ${!isCanChange || quantityOrder === quantity ? 'opacity-75' : 'hover:opacity-75'} text-white font-bold`}>
           <h6>Thêm vào giỏ hàng</h6>
         </button>
         <button className="p-1x text-white bg-ErrorColor hover:opacity-75">
@@ -76,7 +87,10 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected }) => {
         </div>
       </div>
       <div className="flex justify-center">
-        <button className="bg-DarkBlue uppercase text-white hover:opacity-75 py-2x w-[70%] mx-auto text-center">
+        <button
+          disabled={!isCanChange || quantityOrder === quantity}
+          onClick={handleOrder}
+          className={`bg-DarkBlue uppercase text-white ${!isCanChange || quantityOrder === quantity ? 'opacity-75' : 'hover:opacity-75'} py-2x w-[70%] mx-auto text-center`}>
           Đặt hàng
         </button>
       </div>
