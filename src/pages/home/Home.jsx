@@ -12,6 +12,9 @@ import fashionMenImg from '../../assets/fashion-main.jpg';
 import vestSvg from '../../assets/vest-svgrepo-com.svg';
 import staffImg from '../../assets/assistant-staff.jpg';
 import SlideImgs from "./components/SlideImgs";
+import AvertimentHotProduct from "./components/AvertimentHotProduct";
+import OtherItems from "./components/OtherItems";
+import Promotions from "./components/Promotions";
 
 
 const Home = () => {
@@ -49,7 +52,9 @@ const Home = () => {
       <hr className="max-w-[1240px] mx-auto" />
       <div className="mt-3x text-center">
         <h3 className="font-bold mt-2x mb-4x">Sản phẩm nổi bật &amp;</h3>
-        <SlideImgs/>
+        <SlideImgs role="Nam"/>
+        <SlideImgs role="Nữ"/>
+        <SlideImgs role="Quý ông"/>
         <div className="flex justify-center w-[1240px] h-[600px] mx-auto gap-4 m-1x">
               <div className="basis-2/5">
               <img src={mainImg} className="object-cover object-top w-full h-full transition" alt="Ảnh lớn"/>
@@ -85,6 +90,9 @@ const Home = () => {
         <div className="w-[1240px] mx-auto my-2x">
             <h6 className="font-bold italic">Lịch sự - Tinh tế - Chuẩn mực </h6>
         </div>
+        <AvertimentHotProduct/>
+        <OtherItems/>
+        <Promotions/>
         <div className="w-[1240px] mx-auto flex h-[230px] py-1x">
           <img src={fashionImg} className="basis-3/4" alt="fashion"/>
           <img src={fashionMenImg} className="basis-1/4" alt="fashionmen"/>

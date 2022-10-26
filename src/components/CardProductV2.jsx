@@ -8,7 +8,7 @@ const CardProductV2 = () => {
     setFavorite(!isFavorite);
   };
   return (
-    <div className="relative min-w-[230px] h-[330px] shadow-sm hover:shadow-md border mx-1x">
+    <div className="relative max-w-[230px] h-[330px] shadow-sm hover:shadow-md border mx-1x">
       <h6 className="absolute bg-BlackCool text-white top-[-8px] left-[-4px] px-1x font-bold">
         Nổi bật
       </h6>
