@@ -15,6 +15,7 @@ import SlideImgs from "./components/SlideImgs";
 import AvertimentHotProduct from "./components/AvertimentHotProduct";
 import OtherItems from "./components/OtherItems";
 import Promotions from "./components/Promotions";
+import Statement from "./components/Statement";
 
 
 const Home = () => {
@@ -93,10 +94,11 @@ const Home = () => {
         <AvertimentHotProduct/>
         <OtherItems/>
         <Promotions/>
-        <div className="w-[1240px] mx-auto flex h-[230px] py-1x">
+        <Statement/>
+        {/* <div className="w-[1240px] mx-auto flex h-[230px] py-1x">
           <img src={fashionImg} className="basis-3/4" alt="fashion"/>
           <img src={fashionMenImg} className="basis-1/4" alt="fashionmen"/>
-        </div>
+        </div> */}
         <div className="w-full h-[500px] bg-BlackCool flex justify-center">
           <div className="flex w-[1000px] h-[320px] mx-auto my-20 gap-2">
               <div className="relative basis-2/3 bg-white">
