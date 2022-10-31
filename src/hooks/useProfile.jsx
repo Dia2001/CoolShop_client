@@ -7,7 +7,6 @@ function useProfile() {
 
   useEffect(() => {
     fetchApiGetProfile()
-
   }, [token])
 
   const fetchApiGetProfile = async () => {

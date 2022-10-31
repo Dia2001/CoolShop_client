@@ -41,6 +41,8 @@ const Header = () => {
   useEffect(() => {
     if (token !== '' && userLogin) {
       setIsAuthenticated(true)
+    } else {
+      setIsAuthenticated(false)
     }
   }, [token, userLogin])
 
