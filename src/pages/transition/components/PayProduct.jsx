@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import img from "../../../assets/product-o1.png";
 import {MdOutlineArrowBackIos as RightArrow} from 'react-icons/md'
 const PayProduct = () => {
@@ -82,9 +82,9 @@ const PayProduct = () => {
               <h6>800.000Đ</h6>
             </div>
           </div>
-          <button className="text-center uppercase text-white bg-LightBlue hover:bg-DarkBlue w-full p-1x">
+          <Link to='/thanh-toan/thanh-cong' className="text-center uppercase text-white bg-LightBlue hover:bg-DarkBlue w-full p-1x">
             <h6>Thanh toán</h6>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

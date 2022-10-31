@@ -5,8 +5,8 @@ import {
   MdOutlineArrowForwardIos as ArrowRight,
 } from "react-icons/md";
 import CardProductV2 from "../../../components/CardProductV2";
-const SlideImgs = () => {
-  const testSlideImg=[1,2,3,4,5,6,7,8,9];
+const SlideImgs = ({role}) => {
+  const testSlideImg = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   const [isHover, setIsHover] = useState(false);
   const mouseEnterHandler = () => {
     setIsHover(true);
@@ -16,11 +16,9 @@ const SlideImgs = () => {
   };
   const turnLeft = () => {
    
-    console.log("turn left");
+
   };
   const turnRight = () => {
-    
-    console.log("turn right");
     
   };
   return (
@@ -45,9 +43,9 @@ const SlideImgs = () => {
       </div>
       <div className="basis-3/4 overflow-hidden">
         <div className="w-full text-left block">
-          <h5 className="font-bold italic">Thời trang nam</h5>
+          <h5 className="font-bold italic">Thời trang {role}</h5>
         </div>
-        <div className="relative h-full overflow-hidden w-[90%] mx-auto">
+        <div className="relative h-full overflow-hidden w-[835px] mx-auto">
           <div
             onClick={turnLeft}
             className="absolute h-full  left-0 items-center flex justify-center"
@@ -68,7 +66,9 @@ const SlideImgs = () => {
               className="bg-BlackCool opacity-50 hover:opacity-100 p-1x"
             />
           </div>
-          <div id="carousel-container" className=" flex overflow-x-hidden gap-2 transition items-center w-[90%] mx-auto h-full">
+          <div
+            className=" flex overflow-x-hidden transition items-center w-[90%] mx-auto h-full"
+          >
             {/* <CardImg no={1} />
             <CardImg no={2} />
             <CardImg no={3} />
@@ -76,11 +76,11 @@ const SlideImgs = () => {
             <CardImg no={5} />
             <CardImg no={5} />
             <CardImg no={5} /> */}
-            {testSlideImg.map((index,item)=>
-                (
-                  <CardProductV2 key={index}/>
-                )
-            )}
+            <div id="carousel-container" className="flex gap-2 transition">
+              {testSlideImg.map((index, item) => (
+                <CardProductV2 key={index} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
