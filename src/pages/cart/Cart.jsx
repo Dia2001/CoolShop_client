@@ -19,14 +19,13 @@ const Cart = () => {
 
   const fetchApiCart = async () => {
     const result = await CartService.getAll()
-    console.log(result)
 
     if (result.success) {
       let productCarts = result.data.map((item) => {
+        console.log(item)
         let size = findSizeById(item.sizeId)
         let color = findColorById(item.colorId)
-
-        let description = (color ? color.name : '') + ', ' + size ? size.name : ''
+        let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
 
         return {
           name: item.productName,
@@ -34,11 +33,11 @@ const Cart = () => {
           amount: item.quantity,
           price: item.price,
           img: config.urlImageProduct + item.productImage,
+          quantity: item.quanity
         }
       })
       setListProduct(productCarts)
       setCarts(productCarts)
-      console.log(productCarts)
     }
   }
   return (
