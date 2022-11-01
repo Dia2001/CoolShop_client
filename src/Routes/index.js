@@ -20,14 +20,16 @@ const publicRoutes = [
   { path: '/thanh-toan', component: Transition, layout: DefaultLayout },
   { path: '/gio-hang', component: Cart, layout: MenuTabLayout },
   { path: '/yeu-thich', component: Favorite, layout: MenuTabLayout },
-  { path: '/thong-tin-ca-nhan', component: Profile, layout: MenuTabLayout },
   { path: '/lich-su-mua-hang', component: Orders, layout: MenuTabLayout },
   { path: '/san-pham/:slug', component: DetailProduct, layout: DefaultLayout },
-  {path:'/dang-nhap',component:Login,layout: DefaultLayout},
-  {path:'/dang-ky',component:Register,layout: DefaultLayout},
-  {path:'*',component:Error,layout: DefaultLayout},
-  {path:'/thanh-toan/thanh-cong',component:SuccessOrder,layout: DefaultLayout},
-
+  { path: '/dang-nhap', component: Login, layout: DefaultLayout },
+  { path: '/dang-ky', component: Register, layout: DefaultLayout },
+  { path: '*', component: Error, layout: DefaultLayout },
+  { path: '/thanh-toan/thanh-cong', component: SuccessOrder, layout: DefaultLayout },
 ];
 
-export { publicRoutes };
+const privateRoutes = [
+  { path: '/thong-tin-ca-nhan', component: Profile, layout: MenuTabLayout },
+]
+
+export { publicRoutes, privateRoutes };

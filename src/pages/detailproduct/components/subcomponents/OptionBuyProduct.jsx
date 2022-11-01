@@ -43,7 +43,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAdd
       <div className="flex justify-evenly py-1x items-start">
         <button
           disabled={!isCanChange || quantityOrder === quantity}
-          onClick={handleAddToCart}
+          onClick={() => handleAddToCart(quantityOrder)}
           className={`px-5x py-2x bg-ActiveColor ${!isCanChange || quantityOrder === quantity ? 'opacity-75' : 'hover:opacity-75'} text-white font-bold`}>
           <h6>Thêm vào giỏ hàng</h6>
         </button>

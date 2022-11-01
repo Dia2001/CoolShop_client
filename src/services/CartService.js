@@ -6,7 +6,7 @@ import { getHeaders } from '../utils'
 */
 async function getAll() {
   try {
-    const response = await fetch(`${config.BASE_API}/carts`, {
+    const response = await fetch(`${config.BASE_API}/carts/products`, {
       method: 'GET',
       headers: getHeaders()
     })

@@ -10,6 +10,7 @@ const ApplicationContext = ({ children }) => {
   const token = localStorage.getItem('token')
   const [userToken, setUserToken] = useState(token || ''); // Token khi user dang nhap 
   const [userLogin, setUserLogin] = useState(undefined) // Thong tin user dang dang nhap
+  const [carts, setCarts] = useState([])
 
   const logout = () => {
     setUserLogin(undefined)
@@ -26,7 +27,9 @@ const ApplicationContext = ({ children }) => {
       setToken: setUserToken,
       userLogin,
       setUserLogin,
-      logout
+      logout,
+      carts,
+      setCarts
     }}>
       {children}
     </AppContext.Provider>

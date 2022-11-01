@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import logo from "../assets/logo.png";
 import defaultuser from "../assets/defaultuser.png";
 import { BsSearch } from "react-icons/bs";
@@ -7,19 +7,20 @@ import { MdFavoriteBorder as Favorite } from "react-icons/md";
 import {
   MdKeyboardArrowDown as ArrowD,
 } from "react-icons/md";
-
 import imgModel from "../assets/anh-mau.jpg";
-
 import { Link, NavLink } from "react-router-dom";
 import MenuProfile from "./MenuProfile";
 import NotificationCart from "./NotificationCart";
 import HoverDropdown from "./HoverDropdown";
+import { AppContext } from '../Providers/AppContext'
+
 const Header = () => {
-  const [isAuthenticated,setIsAuthenticated] =useState(true);
+  const { token, userLogin } = useContext(AppContext)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const [hoverDropdown, setHoverDropdown] = useState(false);
-  const [closeTabs,setCloseTabs] = useState(false);
-  
+  const [closeTabs, setCloseTabs] = useState(false);
+
   const enterHandler = () => {
     setIsShowPanel(true);
     setCloseTabs(false);
@@ -36,9 +37,18 @@ const Header = () => {
     setIsShowProfile(!isShowProfile);
     setHoverDropdown(false);
   }
+
+  useEffect(() => {
+    if (token !== '' && userLogin) {
+      setIsAuthenticated(true)
+    } else {
+      setIsAuthenticated(false)
+    }
+  }, [token, userLogin])
+
   return (
     <div className="sticky w-full transition top-0  bg-white shadow-sm z-40">
-      <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={()=>setIsShowProfile(!isShowProfile)}/>
+      <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={() => setIsShowProfile(!isShowProfile)} />
 
       <div className="flex justify-between w-[1240px] mx-auto">
         <Link to="/">
@@ -56,51 +66,51 @@ const Header = () => {
           </button>
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
-          <div className={`${!isAuthenticated&&'hidden'} relative flex gap-4 items-center`}>
-            <h6 className="font-bold">Nhân</h6>
+          <div className={`${!isAuthenticated && 'hidden'} relative flex gap-4 items-center`}>
+            <h6 className="font-bold">{userLogin ? userLogin.fullName : ''}</h6>
             <img
               onClick={toggleShowProfile}
-              onMouseEnter={()=>setHoverDropdown(true)}
+              onMouseEnter={() => setHoverDropdown(true)}
               onM
               src={defaultuser}
               className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
               alt="Avatar"
             />
-            <HoverDropdown isVisible={hoverDropdown} setIsVisible={()=>setHoverDropdown(false)}/>
+            <HoverDropdown isVisible={hoverDropdown} setIsVisible={() => setHoverDropdown(false)} />
           </div>
-          <div className={`${isAuthenticated&&'hidden'} flex `}>
-          <Link
-            to="/dang-nhap"
-            className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
-          >
+          <div className={`${isAuthenticated && 'hidden'} flex `}>
+            <Link
+              to="/dang-nhap"
+              className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
+            >
               <h6 className="text-DarkBlue">Đăng nhập</h6>
             </Link>
             <Link
-            to="/dang-ky"
-            className="relative mx-1x py-2x px-3x text-center items-center border-2  border-WarningColor flex"
-          >
+              to="/dang-ky"
+              className="relative mx-1x py-2x px-3x text-center items-center border-2  border-WarningColor flex"
+            >
               <h6 className="text-WarningColor">Đăng ký</h6>
             </Link>
           </div>
 
-      <div className="relative">
-      <Link
-            to="/thanh-toan"
-            className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
-          >
-           
-            <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
-              0
-            </h6>
-            <h6 className="mx-2">Giỏ hàng</h6>
-          {/*hien thong bao khi them san pham vao! */}
-            <Cart color="green" size={30} />
-          </Link>
-           <NotificationCart/>
-      </div>
+          <div className="relative">
+            <Link
+              to="/thanh-toan"
+              className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
+            >
+
+              <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
+                0
+              </h6>
+              <h6 className="mx-2">Giỏ hàng</h6>
+              {/*hien thong bao khi them san pham vao! */}
+              <Cart color="green" size={30} />
+            </Link>
+            <NotificationCart />
+          </div>
           <Link
             to="/gio-hang"
-            className={`${!isAuthenticated&&'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
+            className={`${!isAuthenticated && 'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
               0
@@ -168,11 +178,10 @@ const Header = () => {
       <div
         onMouseEnter={enterHandler}
         onMouseLeave={leaveHandler}
-        className={`${
-          !isShowPanel && "hidden"
-        } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
+        className={`${!isShowPanel && "hidden"
+          } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
       >
-        <div className={`${closeTabs&&'hidden'} absolute w-full h-[60px] top-[-60px] left-0`}></div>
+        <div className={`${closeTabs && 'hidden'} absolute w-full h-[60px] top-[-60px] left-0`}></div>
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
             <h6 className="font-bold">Áo</h6>
@@ -215,9 +224,8 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`${
-          !isShowPanel && "hidden"
-        } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
+        className={`${!isShowPanel && "hidden"
+          } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
       ></div>
     </div>
   );
