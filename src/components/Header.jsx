@@ -95,7 +95,7 @@ const Header = () => {
 
           <div className="relative">
             <Link
-              to="/thanh-toan"
+              to="/gio-hang"
               className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
             >
 

@@ -31,7 +31,7 @@ const FilterProduct = () => {
     <div className=" col-span-2">
       <div className="relative w-full min-h-[110px] rounded-md border border-Black75 m-1 overflow-y-hidden">
         <h6 className="font-bold">Bạn chọn</h6>
-        <div flex className="flex w-[90%] flex-wrap gap-2 m-1x min-h-[60px]">
+        <div className="flex w-[90%] flex-wrap gap-2 m-1x min-h-[60px]">
           {yourChoices.map((item, index) => (
             <button key={index} className="border border-DarkBlue rounded-md py-1 px-2">
               <p>{item}</p>
