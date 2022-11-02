@@ -7,16 +7,16 @@ import SelectQuantity from "../../../components/Inputs/SelectQuantity";
 //thu vien them tooltip
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-import ProductService from "../../../services/ProductService";
+// import ProductService from "../../../services/ProductService";
 
-const ItemsCart = ({ item, index, totalPrice, setTotalPrice }) => {
+const ItemsCart = ({ item, totalPrice, setTotalPrice }) => {
   const [quantitySelect, setQuantitySelect] = useState(0)
-  const [max, setMax] = useState(item.quantity)
+  // const [max, setMax] = useState(item.quantity)
   const [selected, setSelected] = useState(totalPrice ? totalPrice.selected : false)
 
   useEffect(() => {
     setQuantitySelect(item.quantity)
-    fetchApiGetProduct(item.productId)
+    // fetchApiGetProduct(item.productId)
   }, [])
 
   useEffect(() => {
@@ -32,19 +32,19 @@ const ItemsCart = ({ item, index, totalPrice, setTotalPrice }) => {
     })
   }, [quantitySelect, selected])
 
-
-  const fetchApiGetProduct = async (productId) => {
-    const resultQuantity = await ProductService.getQuantityProductById(productId)
-
-    if (resultQuantity.success) {
-
-      for (let quantity of resultQuantity.data) {
-        if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
-          setMax(quantity.quantity)
-        }
-      }
-    }
-  }
+  //
+  // const fetchApiGetProduct = async (productId) => {
+  //   const resultQuantity = await ProductService.getQuantityProductById(productId)
+  //
+  //   if (resultQuantity.success) {
+  //
+  //     for (let quantity of resultQuantity.data) {
+  //       if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
+  //         setMax(quantity.quantity)
+  //       }
+  //     }
+  //   }
+  // }
 
   return (
     <div className="relative gap-2 flex shadow-md bg-white ">
@@ -79,7 +79,7 @@ const ItemsCart = ({ item, index, totalPrice, setTotalPrice }) => {
         quantity={quantitySelect}
         setQuantity={setQuantitySelect}
         isCanChange={true}
-        max={max}
+        max={item.max}
         min={0}
       ></SelectQuantity>
     </div>

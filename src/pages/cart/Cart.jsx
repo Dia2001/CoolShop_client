@@ -6,6 +6,7 @@ import HeaderCart from './components/HeaderCart';
 import { AppContext } from '../../Providers/AppContext'
 import { ProductContext } from '../../Providers/ProductContext'
 import CartService from '../../services/CartService';
+import ProductService from '../../services/ProductService';
 import config from '../../config';
 
 const Cart = () => {
@@ -24,19 +25,36 @@ const Cart = () => {
     const result = await CartService.getAll()
 
     if (result.success) {
-      let productCarts = result.data.map((item) => {
+      let productCarts = []
+
+      for (let item of result.data) {
+
         let size = findSizeById(item.sizeId)
         let color = findColorById(item.colorId)
         let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
+        let max = item.quantity
 
-        return {
+        const resultQuantity = await ProductService.getQuantityProductById(item.productId)
+
+        if (resultQuantity.success) {
+
+          for (let quantity of resultQuantity.data) {
+            if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
+              max = quantity.quantity
+            }
+          }
+        }
+
+        productCarts.push({
           ...item,
+          max: max,
           name: item.productName,
           description: description,
           amount: item.quantity,
           img: config.urlImageProduct + item.productImage,
-        }
-      })
+        })
+      }
+
       setListProduct(productCarts)
       setCarts(productCarts)
     }
