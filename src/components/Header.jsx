@@ -71,7 +71,6 @@ const Header = () => {
             <img
               onClick={toggleShowProfile}
               onMouseEnter={() => setHoverDropdown(true)}
-              onM
               src={defaultuser}
               className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
               alt="Avatar"

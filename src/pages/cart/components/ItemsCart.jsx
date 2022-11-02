@@ -1,14 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BsPencilSquare as Modify,
   BsFillCartDashFill as RemoveCart,
 } from "react-icons/bs";
+import SelectQuantity from "../../../components/Inputs/SelectQuantity";
 //thu vien them tooltip
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-const ItemsCart = ({ item }) => {
+import ProductService from "../../../services/ProductService";
+
+const ItemsCart = ({ item, index, totalPrice, setTotalPrice }) => {
+  const [quantitySelect, setQuantitySelect] = useState(0)
+  const [max, setMax] = useState(item.quantity)
+  const [selected, setSelected] = useState(totalPrice ? totalPrice.selected : false)
+
+  useEffect(() => {
+    setQuantitySelect(item.quantity)
+    fetchApiGetProduct(item.productId)
+  }, [])
+
+  useEffect(() => {
+    if (totalPrice) {
+      setSelected(totalPrice.selected)
+    }
+  }, [totalPrice])
+
+  useEffect(() => {
+    setTotalPrice({
+      selected: selected,
+      price: quantitySelect * item.price
+    })
+  }, [quantitySelect, selected])
+
+
+  const fetchApiGetProduct = async (productId) => {
+    const resultQuantity = await ProductService.getQuantityProductById(productId)
+
+    if (resultQuantity.success) {
+
+      for (let quantity of resultQuantity.data) {
+        if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
+          setMax(quantity.quantity)
+        }
+      }
+    }
+  }
+
   return (
     <div className="relative gap-2 flex shadow-md bg-white ">
+      <input type="checkbox"
+        className="w-6 h-6 my-auto mr-2 ml-6 cursor-pointer"
+        checked={selected}
+        onChange={(e) => setSelected(e.target.checked)} />
       <img
         src={item.img}
         className="object-cover h-[120px] w-[120px]"
@@ -21,42 +64,26 @@ const ItemsCart = ({ item }) => {
       </div>
       <div className="absolute bottom-1 right-2 flex justify-center items-center text-center gap-2">
         <h6 className="font-bold">{item.price}</h6>
-      <Tippy content={'Xóa sản phẩm'}>
-        <button className="rounded-full hover:opacity-75 text-white bg-ErrorColor p-2">
-          <RemoveCart size={20} />
-        </button>
-      </Tippy>
-      <Tippy content={'Thay đổi sản phẩm'}>
-        <button className="rounded-full hover:opacity-75  text-white bg-ActiveColor p-2">
-          <Modify size={20} />
-        </button>
-      </Tippy>
-      </div>
-      {/* input number */}
-      <div class="custom-number-input h-10 w-32 absolute right-1 top-1">
-        <div class="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-          <button
-            data-action="decrement"
-            class=" bg-white border border-Black10 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-l cursor-pointer outline-none"
-          >
-            <span class="m-auto text-2xl font-thin">−</span>
+        <Tippy content={'Xóa sản phẩm'}>
+          <button className="rounded-full hover:opacity-75 text-white bg-ErrorColor p-2">
+            <RemoveCart size={20} />
           </button>
-          <input
-            type="number"
-            class="outline-none focus:outline-none text-center w-full bg-white border border-Black10 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-            name="custom-input-number"
-            value="1"
-          ></input>
-          <button
-            data-action="increment"
-            class="bg-white border border-Black10 text-gray-600 hover:text-gray-700 hover:bg-gray-400 h-full w-20 rounded-r cursor-pointer"
-          >
-            <span class="m-auto text-2xl font-thin">+</span>
+        </Tippy>
+        <Tippy content={'Thay đổi sản phẩm'}>
+          <button className="rounded-full hover:opacity-75  text-white bg-ActiveColor p-2">
+            <Modify size={20} />
           </button>
-        </div>
+        </Tippy>
       </div>
+      <SelectQuantity
+        quantity={quantitySelect}
+        setQuantity={setQuantitySelect}
+        isCanChange={true}
+        max={max}
+        min={0}
+      ></SelectQuantity>
     </div>
-  );
-};
+  )
+}
 
 export default ItemsCart;

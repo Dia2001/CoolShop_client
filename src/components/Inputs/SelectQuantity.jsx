@@ -56,7 +56,7 @@ function SelectQuantity({ quantity, setQuantity, isCanChange, max, min }) {
         <button
           data-action="increment"
           className={`bg-white border border-Black10 text-gray-600 h-full w-20 rounded-l outline-none ${isCanChange ? ' hover:text-gray-700 hover:bg-gray-400' : 'opacity-75'}`}
-          disabled={!isCanChange || quantity > max}
+          disabled={!isCanChange || quantity === max}
           onClick={() => handleChangeQuantity(quantity + 1)}
         >
           <span className="m-auto text-2xl font-thin">+</span>

@@ -12,6 +12,9 @@ const Cart = () => {
   const { carts, setCarts } = useContext(AppContext)
   const { isChange, findColorById, findSizeById } = useContext(ProductContext)
   const [listProduct, setListProduct] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalPrices, setTotalPrices] = useState([])
+  const [checkAll, setCheckAll] = useState({ s: 0, c: false })
 
   useEffect(() => {
     fetchApiCart()
@@ -22,31 +25,63 @@ const Cart = () => {
 
     if (result.success) {
       let productCarts = result.data.map((item) => {
-        console.log(item)
         let size = findSizeById(item.sizeId)
         let color = findColorById(item.colorId)
         let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
 
         return {
+          ...item,
           name: item.productName,
           description: description,
           amount: item.quantity,
-          price: item.price,
           img: config.urlImageProduct + item.productImage,
-          quantity: item.quanity
         }
       })
       setListProduct(productCarts)
       setCarts(productCarts)
     }
   }
+
+  useEffect(() => {
+    let checked = 0
+    setTotalPrice(totalPrices.reduce((curr, item) => {
+      if (item.selected) {
+        curr += item.price
+        checked++
+      }
+      return curr
+    }, 0))
+
+    if (listProduct.length > 0 && checked === listProduct.length) {
+      setCheckAll({ s: 0, c: true })
+    } else {
+      setCheckAll({ s: 0, c: false })
+    }
+  }, [totalPrices])
+
+  useEffect(() => {
+    if (checkAll.s === 1) {
+      setTotalPrices(prev => prev.map((item) => ({ ...item, selected: checkAll.c })))
+    }
+  }, [checkAll])
+
+  const setPrice = (index, price) => {
+    setTotalPrices(prev => {
+      let prices = [...prev]
+      prices[index] = price
+      return prices
+    })
+  }
+
   return (
     <div className="m-1 flex flex-col gap-2">
-      <HeaderCart length={listProduct.length} />
+      <HeaderCart quantity={listProduct.length} totalPrices={totalPrices}
+        checkAll={checkAll} setCheckAll={setCheckAll} />
       {listProduct.map((item, index) => (
-        <ItemsCart key={index} item={item} />
+        <ItemsCart key={index} index={index} item={item} totalPrice={totalPrices[index]}
+          setTotalPrice={(price) => setPrice(index, price)} />
       ))}
-      <FooterTransition />
+      <FooterTransition totalPrice={totalPrice} />
     </div>
   )
 }
