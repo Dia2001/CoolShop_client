@@ -8,9 +8,11 @@ import { ProductContext } from '../../Providers/ProductContext'
 import CartService from '../../services/CartService';
 import ProductService from '../../services/ProductService';
 import config from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { carts, setCarts } = useContext(AppContext)
+  const navigate = useNavigate()
+  const { carts, setCarts, setCartsSelected } = useContext(AppContext)
   const { isChange, findColorById, findSizeById } = useContext(ProductContext)
   const [listProduct, setListProduct] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
@@ -60,6 +62,17 @@ const Cart = () => {
     }
   }
 
+  const handleCheckout = () => {
+    let ids = []
+    for (let index in totalPrices) {
+      if (totalPrices[index].selected) {
+        ids.push(carts[index].id)
+      }
+    }
+    setCartsSelected(ids)
+    navigate('/thanh-toan')
+  }
+
   useEffect(() => {
     let checked = 0
     setTotalPrice(totalPrices.reduce((curr, item) => {
@@ -99,7 +112,7 @@ const Cart = () => {
         <ItemsCart key={index} index={index} item={item} totalPrice={totalPrices[index]}
           setTotalPrice={(price) => setPrice(index, price)} />
       ))}
-      <FooterTransition totalPrice={totalPrice} />
+      <FooterTransition handleCheckout={handleCheckout} totalPrice={totalPrice} />
     </div>
   )
 }
