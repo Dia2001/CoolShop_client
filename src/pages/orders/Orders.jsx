@@ -1,96 +1,57 @@
-import React from 'react'
+import { useEffect, useState, useContext } from 'react'
+import OrderService from '../../services/OrderService'
 import FooterOrders from './components/FooterOrders'
 import HeaderOrders from './components/HeaderOrders'
 import ListOrders from './components/ListOrders'
-import img from "../../assets/product-o1.png";
-const Orders = () => {
-  const testOrders=[
-    {
-      "status":"Giao thành công",
-      "products":[
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-      ]
-    },
-    {
-      "status":"Đang giao hàng",
-      "products":[
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-        {
-          name: "Quần jeans nam Ống suông co giãn thoáng mát",
-          description: "Xanh, size: XS",
-          amount: "2",
-          price: "400000Đ",
-          img: img,
-        },
-      ]
+import { orderStatus } from '../../common/Contants'
+import config from '../../config'
+import { ProductContext } from '../../Providers/ProductContext'
+
+function Orders() {
+  const { isChange, findColorById, findSizeById } = useContext(ProductContext)
+  const [orders, setOrders] = useState([])
+  const [typeShow, setTypeShow] = useState('default')
+
+  useEffect(() => {
+    getOrders()
+  }, [])
+
+  const getOrders = async () => {
+    const result = await OrderService.getAll()
+
+    if (result.success) {
+      setOrders(result.data.map(order => {
+        let totalPrice = 0
+        const orderTmp = {
+          ...order,
+          status: orderStatus[order.orderStatusId],
+          date: order.createDate,
+          orderDetail: order.orderDetail.map((item) => {
+            let size = findSizeById(item.sizeId)
+            let color = findColorById(item.colorId)
+            let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
+            totalPrice += item.price * item.quantity
+
+            return {
+              ...item,
+              name: item.productName,
+              description: description,
+              amount: item.quantity,
+              img: config.urlImageProduct + item.productImage,
+            }
+          })
+        }
+        orderTmp.totalPrice = totalPrice
+        return orderTmp
+      }))
     }
-  ];
+  }
+
   return (
     <div>
-      <HeaderOrders/>
-      <ListOrders orders={testOrders}/>
-      <FooterOrders/>
+      <HeaderOrders typeShow={typeShow} setTypeShow={setTypeShow} />
+      <ListOrders orders={orders} typeShow={typeShow} />
+      <FooterOrders />
     </div>
   )
 }

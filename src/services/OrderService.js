@@ -6,7 +6,7 @@ import { getHeaders } from '../utils'
 */
 async function getAll() {
   try {
-    const response = await fetch(`${config.BASE_API}/carts/products`, {
+    const response = await fetch(`${config.BASE_API}/orders/user`, {
       method: 'GET',
       headers: getHeaders()
     })
@@ -42,7 +42,7 @@ async function order(order) {
       body: JSON.stringify(order)
     })
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       const result = await response.json()
       return {
         success: true,

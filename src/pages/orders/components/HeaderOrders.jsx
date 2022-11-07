@@ -1,9 +1,10 @@
 import React from 'react'
 import { BsSearch } from 'react-icons/bs'
 // import Select from 'react-select'
-const HeaderOrders = () => {
+const HeaderOrders = ({ typeShow, setTypeShow }) => {
   const optionsFilter = [
     { "value": "default", "label": "Tất cả các đơn" },
+    { "value": "created", "label": "Chờ xác nhận" },
     { "value": "thanhtoan", "label": "Chờ thanh toán" },
     { "value": "vanchuyen", "label": "Đang vận chuyển" },
     { "value": "dagiao", "label": "Đã giao" },
@@ -21,7 +22,11 @@ const HeaderOrders = () => {
       {/*select multivalues */}
       <div>
         <h6 className="font-bold">Sắp xếp theo: </h6>
-        <select className="p-2 border border-Black25" name="sortby">
+        <select
+          value={typeShow}
+          className="p-2 border border-Black25"
+          onChange={(e) => setTypeShow(e.target.value)}
+          name="sortby">
           {optionsFilter.map((item, index) => (
             <option key={index} value={item.value}>{item.label}</option>
           ))}
