@@ -85,7 +85,7 @@ const Header = () => {
 
       <div className="relative">
       <Link
-            to="/thanh-toan"
+            to="/gio-hang"
             className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
           >
            
@@ -99,7 +99,7 @@ const Header = () => {
            <NotificationCart/>
       </div>
           <Link
-            to="/gio-hang"
+            to="/yeu-thich"
             className={`${!isAuthenticated&&'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">

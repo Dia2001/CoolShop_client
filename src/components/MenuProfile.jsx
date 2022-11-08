@@ -6,7 +6,7 @@ const MenuProfile = ({isShowProfile,setIsShowProfile}) => {
   
   return (
     <div>
-      <div onClick={setIsShowProfile} className={`${isShowProfile &&'hidden'} fixed top-0 left-0 w-full h-full bg-BlackCool/25 z-50`}></div>
+      <div onClick={setIsShowProfile} className={`${isShowProfile &&'hidden'} animate-slowShow fixed top-0 left-0 w-full h-full bg-BlackCool/25 z-50`}></div>
     <div className={`${isShowProfile&&'translate-x-[100%]'} transition fixed right-0 top-0  backdrop-blur-md bg-white/90 rounded-l-[27px] h-[100vh] w-[450px] shadow-md z-50 `}>
       <button onClick={setIsShowProfile}>
       <Arrow

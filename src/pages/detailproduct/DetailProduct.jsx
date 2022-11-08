@@ -5,11 +5,13 @@ import ContentProduct from "./components/ContentProduct";
 import DescriptionProduct from "./components/DescriptionProduct";
 import HeaderDetailProduct from "./components/HeaderDetailProduct";
 import ImageProduct from "./components/ImageProduct";
+
 import ReviewProduct from "./components/ReviewProduct";
+import PopupFormReview from "./components/subcomponents/PopupFormReview";
 import ProductDetailContext from './ProductDetailContext'
 
 const DetailProduct = () => {
-
+  const [popUp, setPopUp]=useState(true);
   const params = useParams()
   const productSlug = params.slug
   const [product, setProduct] = useState()
@@ -35,6 +37,8 @@ const DetailProduct = () => {
 
   return (
     <ProductDetailContext product={product} quantities={quantities}>
+      {/* Nên bỏ popup vào useContext */}
+      <PopupFormReview popUp={popUp} setPopUp={()=>setPopUp(false)}/>
       <div className="bg-LightBlue/5">
         <div className="w-[1240px] mx-auto py-4x">
           <HeaderDetailProduct />
@@ -43,7 +47,7 @@ const DetailProduct = () => {
             <ContentProduct />
           </div>
           <DescriptionProduct product={product} />
-          <ReviewProduct />
+         <ReviewProduct/>
         </div>
       </div>
     </ProductDetailContext>
