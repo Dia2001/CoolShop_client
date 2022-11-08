@@ -58,7 +58,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAdd
           disabled={checkAddAndOrder()}
           onClick={handleOrder}
           className={`bg-DarkBlue uppercase text-white ${checkAddAndOrder() ? 'opacity-75' : 'hover:opacity-75'} py-2x w-[70%] mx-auto text-center`}>
-          Đặt hàng
+          Thanh toán ngay
         </button>
       </div>
       <div className="flex justify-between items-center p-1x my-1x border">

@@ -1,19 +1,9 @@
 import config from '../config'
-const getHeaders = () => {
-  return {
-    'ContentType': 'application/json'
-  }
-}
+import { getToken, getHeaders } from '../utils'
 
-async function getFilter({ ...filter }) {
-  let queryParams = '?'
-
-  for (let param in filter) {
-    queryParams += `${param}=${filter[param]}&`
-  }
-
+async function getAllGalleryInProductById(productId) {
   try {
-    const response = await fetch(`${config.BASE_API}/products/filter${queryParams}`, {
+    const response = await fetch(`${config.BASE_API}/galleries/${productId}`, {
       method: 'GET',
       headers: getHeaders()
     })
@@ -41,14 +31,51 @@ async function getFilter({ ...filter }) {
   }
 }
 
-async function getById(id) {
+async function uploadImages(productId, images) {
   try {
-    const response = await fetch(`${config.BASE_API}/products/${id}`, {
-      method: 'GET',
+    const formData = new FormData()
+    for (let index in images) {
+      formData.append(`files`, images[index])
+    }
+    const response = await fetch(`${config.BASE_API}/galleries/${productId}`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${getToken() || ''}`
+      },
+      body: formData
+    })
+
+    const result = await response.text()
+
+    if (response.status === 201) {
+      return {
+        success: true,
+        data: result
+      }
+    } else {
+      return {
+        success: false,
+        data: result
+      }
+    }
+
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false,
+      data: ''
+    }
+  }
+}
+
+async function deleteGalleryById(galleryId) {
+  try {
+    const response = await fetch(`${config.BASE_API}/galleries/${galleryId}`, {
+      method: 'DELETE',
       headers: getHeaders()
     })
 
-    const result = await response.json()
+    const result = await response.text()
 
     if (response.status === 200) {
       return {
@@ -71,40 +98,16 @@ async function getById(id) {
   }
 }
 
-async function getQuantityProductById(productId) {
-  try {
-    const response = await fetch(`${config.BASE_API}/products/quantity/${productId}`, {
-      method: 'GET',
-      headers: getHeaders()
-    })
-
-    const result = await response.json()
-
-    if (response.status === 200) {
-      return {
-        success: true,
-        data: result
-      }
-    } else {
-      return {
-        success: false,
-        data: result
-      }
-    }
-
-  } catch (e) {
-    console.log(e)
-    return {
-      success: false,
-      data: ''
-    }
-  }
+const GalleryService = {
+  getAllGalleryInProductById,
+  uploadImages,
+  deleteGalleryById,
 }
 
-const ProductService = {
-  getFilter,
-  getById,
-  getQuantityProductById
+export {
+  getAllGalleryInProductById,
+  uploadImages,
+  deleteGalleryById,
 }
 
-export default ProductService
+export default GalleryService
