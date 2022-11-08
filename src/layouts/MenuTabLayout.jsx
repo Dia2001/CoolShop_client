@@ -1,20 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
+import config from "../config";
+import useCarts from "../hooks/useCarts";
 import DefaultLayout from "./DefaultLayout";
+
 const MenuTabLayout = ({ children }) => {
 
-  const [isChoose,SetIsChoose] = useState([false,false,false,false]);
-  const setChooseOnly=(n)=>{//hàm đã cũ nhưng không xóa, tránh xảy ra lỗi
-      // const tmp=isChoose
-      // if(n!=null)
-      // for(let i=0;i<tmp.length;i++){
-      //   if(n!==i){
-      //     tmp[i]=false;
-      //   }
-      //   else
-      //     tmp[i]=true;
-      // }
-      // SetIsChoose(tmp);
+  // useCarts()
+
+  const [isChoose, SetIsChoose] = useState([false, false, false, false]);
+  const setChooseOnly = (n) => {//hàm đã cũ nhưng không xóa, tránh xảy ra lỗi
+    // const tmp=isChoose
+    // if(n!=null)
+    // for(let i=0;i<tmp.length;i++){
+    //   if(n!==i){
+    //     tmp[i]=false;
+    //   }
+    //   else
+    //     tmp[i]=true;
+    // }
+    // SetIsChoose(tmp);
   }
 
   //Toi muon dung mau thoi de tai sung dung nhung cach thiet lap rieng biet opacity khong duoc sai!
@@ -52,73 +57,73 @@ const MenuTabLayout = ({ children }) => {
   };
   const location = useLocation();
 
-  let currentPath=location.pathname;
+  let currentPath = location.pathname;
   useEffect(
-    ()=>{
-     switch(currentPath){
-      case "/gio-hang":
-        SetIsChoose([true,false,false,false]);
-        setColorBg(colorsBg[0]);
-        break;
-        case "/yeu-thich":
-          SetIsChoose([false,true,false,false]);
+    () => {
+      switch (currentPath) {
+        case config.routes.cart:
+          SetIsChoose([true, false, false, false]);
+          setColorBg(colorsBg[0]);
+          break;
+        case config.routes.favorite:
+          SetIsChoose([false, true, false, false]);
           setColorBg(colorsBg[1]);
           break;
-          case "/thong-tin-ca-nhan":
-            SetIsChoose([false,false,true,false]);
-            setColorBg(colorsBg[2]);
+        case config.routes.profile:
+          SetIsChoose([false, false, true, false]);
+          setColorBg(colorsBg[2]);
           break;
-          case "/lich-su-mua-hang":
-            SetIsChoose([false,false,false,true]);
-            setColorBg(colorsBg[3]);
+        case config.routes.history:
+          SetIsChoose([false, false, false, true]);
+          setColorBg(colorsBg[3]);
           break;
-          default:
-            SetIsChoose([true,false,false,false]);
-            setColorBg(colorsBg[0]);
-     }
+        default:
+          SetIsChoose([true, false, false, false]);
+          setColorBg(colorsBg[0]);
+      }
     }
-  ,[currentPath])
+    , [currentPath])
   return (
     <DefaultLayout>
       <div className={`w-full ${colorBg}`}>
         <div className="max-w-[878px] mx-auto p-2x">
           <div className="my-3x p-2 flex gap-6 bg-white rounded-md shadow-sm">
-            <NavLink to="/gio-hang">
-            <h6
-              onClick={updateColorHandler}
-              className={`${isChoose[0]&&'scale-110 underline underline-offset-2 text-ActiveColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-ActiveColor`}
-              id="gh"
-            >
-              Giỏ hàng
-            </h6>
+            <NavLink to={config.routes.cart}>
+              <h6
+                onClick={updateColorHandler}
+                className={`${isChoose[0] && 'scale-110 underline underline-offset-2 text-ActiveColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-ActiveColor`}
+                id="gh"
+              >
+                Giỏ hàng
+              </h6>
             </NavLink>
-          <NavLink to="/yeu-thich">
-            <h6
-              onClick={updateColorHandler}
-              className={`${isChoose[1]&&'scale-110 underline underline-offset-2 text-ErrorColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-ErrorColor`}
-              id="yt"
-            >
-              Sản phẩm yêu thích
-            </h6>
-          </NavLink>
-          <NavLink to="/thong-tin-ca-nhan">
-            <h6
-              onClick={updateColorHandler}
-              className={`${isChoose[2]&&'scale-110 underline underline-offset-2 text-LightBlue'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-LightBlue`}
-              id="tt"
-            >
-              Thông tin cá nhân
-            </h6>
-          </NavLink>
-          <NavLink to="/lich-su-mua-hang">
-            <h6
-              onClick={updateColorHandler}
-              className={`${isChoose[3]&&'scale-110 underline underline-offset-2 text-WarningColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-WarningColor`}
-              id="dh"
-            >
-              Đơn hàng
-            </h6>
-          </NavLink>
+            <NavLink to={config.routes.favorite}>
+              <h6
+                onClick={updateColorHandler}
+                className={`${isChoose[1] && 'scale-110 underline underline-offset-2 text-ErrorColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-ErrorColor`}
+                id="yt"
+              >
+                Sản phẩm yêu thích
+              </h6>
+            </NavLink>
+            <NavLink to={config.routes.profile}>
+              <h6
+                onClick={updateColorHandler}
+                className={`${isChoose[2] && 'scale-110 underline underline-offset-2 text-LightBlue'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-LightBlue`}
+                id="tt"
+              >
+                Thông tin cá nhân
+              </h6>
+            </NavLink>
+            <NavLink to={config.routes.history}>
+              <h6
+                onClick={updateColorHandler}
+                className={`${isChoose[3] && 'scale-110 underline underline-offset-2 text-WarningColor'} transition font-bold cursor-pointer hover:underline hover:underline-offset-2 hover:text-WarningColor`}
+                id="dh"
+              >
+                Đơn hàng
+              </h6>
+            </NavLink>
           </div>
           {children}
         </div>

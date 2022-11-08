@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineArrowBackIos as RightArrow } from 'react-icons/md'
 import { enPriceVnd } from '../../../utils'
+import config from "../../../config";
 
 const PayProduct = ({ isPay, checkoutInfo, listProduct, handleCheckout }) => {
   const [totalPrice, setTotalPrice] = useState(0)
@@ -33,7 +34,7 @@ const PayProduct = ({ isPay, checkoutInfo, listProduct, handleCheckout }) => {
       <div className="w-[380px] min-h-[60px] m-2 p-1 border border-Black75 flex justify-between">
         <div className="flex justify-between flex-col">
           <h6>5 sản phẩm</h6>
-          <Link to="/gio-hang" className="flex gap-1 text-WarningColor">
+          <Link to={config.routes.cart} className="flex gap-1 text-WarningColor">
             <RightArrow size={20} />
             <h6>Quay lại giỏ hàng</h6>
           </Link>

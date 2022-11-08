@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { GiConfirmed as Confirm } from "react-icons/gi";
+import config from "../../config";
+import { enPriceVnd } from "../../utils";
+
 const SuccessOrder = () => {
   const navigate = useNavigate();
   const [count, setCount] = useState(10);
+
   useEffect(() => {
     setTimeout(() => {
-      navigate("/lich-su-mua-hang");
+      navigate(config.routes.history);
     }, 11000);
   }, []);
+
   useEffect(() => {
     const id = setInterval(() => setCount((oldCount) => oldCount - 1), 1000);
     console.log(count);
@@ -24,17 +29,17 @@ const SuccessOrder = () => {
           <Confirm size={70} />
           <h5>Đặt hàng thành công</h5>
         </div>
-        <h6 className="font-bold">Mã đơn: 67566453454</h6>
-        <h5 className="mb-4x">Tổng tiền: 400.000Đ</h5>
+        <h6 className="font-bold">Mã đơn: {localStorage.getItem('orderId')}</h6>
+        <h5 className="mb-4x">Tổng tiền: {enPriceVnd(localStorage.getItem('priceOrder'))}Đ</h5>
         <div className="flex flex-col gap-4 items-center">
           <Link
-            to="/lich-su-mua-hang"
+            to={config.routes.history}
             className=" p-2x w-fit text-white rounded-full bg-ActiveColor font-semibold shadow-md "
           >
             <h6>Theo dõi đơn hàng</h6>
           </Link>
           <Link
-            to="/"
+            to={config.routes.home}
             className=" p-2x w-fit text-white rounded-full bg-LightBlue  font-semibold shadow-md "
           >
             <h6>Tiếp tục mua hàng</h6>
@@ -49,8 +54,8 @@ const SuccessOrder = () => {
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
             <path
-              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
               fill="currentColor"
             />
             <path

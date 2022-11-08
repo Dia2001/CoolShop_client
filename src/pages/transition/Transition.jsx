@@ -5,6 +5,7 @@ import { AppContext } from '../../Providers/AppContext'
 import { isVietnamesePhoneNumber, isName } from '../../utils/Validate'
 import OrderService from "../../services/OrderService";
 import { useNavigate } from "react-router-dom";
+import config from "../../config";
 
 const Transition = () => {
   const navigate = useNavigate()
@@ -68,7 +69,11 @@ const Transition = () => {
     const result = await OrderService.order(order)
 
     if (result.success) {
-      navigate('/thanh-toan/thanh-cong')
+      let total = listProduct.reduce((curr, item) => curr + item.price * item.amount, 0)
+        + checkoutInfo.priceShip
+      localStorage.setItem('priceOrder', total)
+      localStorage.setItem('orderId', result.data)
+      navigate(config.routes.checkoutComplete)
     } else {
       alert("Có lỗi!")
     }

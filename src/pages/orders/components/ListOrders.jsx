@@ -56,6 +56,7 @@ const ListOrders = ({ orders, typeShow }) => {
           </div>
         </div>
       ))}
+      {ordersShow.length === 0 ? <h5>Không có đơn hàng nào cả</h5> : ''}
     </div>
   );
 };

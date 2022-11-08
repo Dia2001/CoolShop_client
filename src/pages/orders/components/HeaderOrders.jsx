@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsSearch } from 'react-icons/bs'
-// import Select from 'react-select'
+import { orderStatus } from '../../../common/Contants'
+
 const HeaderOrders = ({ typeShow, setTypeShow }) => {
-  const optionsFilter = [
-    { "value": "default", "label": "Tất cả các đơn" },
-    { "value": "created", "label": "Chờ xác nhận" },
-    { "value": "thanhtoan", "label": "Chờ thanh toán" },
-    { "value": "vanchuyen", "label": "Đang vận chuyển" },
-    { "value": "dagiao", "label": "Đã giao" },
-    { "value": "dahuy", "label": "Đã hủy" },
-  ]
+  const optionDefault = { "value": "default", "label": "Tất cả các đơn" }
+  const [optionsFilter, setOptionsFileter] = useState([
+    optionDefault
+  ])
+
+  useEffect(() => {
+    let options = []
+    options.push(optionDefault)
+    for (let key in orderStatus) {
+      options.push({
+        value: key,
+        label: orderStatus[key]
+      })
+    }
+    setOptionsFileter(options)
+  }, [])
+
   return (
     <div className="flex justify-between items-center my-3x px-2x py-1x rounded-sm shadow-sm bg-white">
       <h4 className="text-WarningColor font-bold">Đơn hàng</h4>

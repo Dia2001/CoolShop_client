@@ -12,55 +12,11 @@ import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const navigate = useNavigate()
-  const { carts, setCarts, setCartsSelected } = useContext(AppContext)
+  const { carts, setCartsSelected } = useContext(AppContext)
   const { isChange, findColorById, findSizeById } = useContext(ProductContext)
-  const [listProduct, setListProduct] = useState([])
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalPrices, setTotalPrices] = useState([])
   const [checkAll, setCheckAll] = useState({ s: 0, c: false })
-
-  useEffect(() => {
-    fetchApiCart()
-  }, [isChange])
-
-  const fetchApiCart = async () => {
-    const result = await CartService.getAll()
-
-    if (result.success) {
-      let productCarts = []
-
-      for (let item of result.data) {
-
-        let size = findSizeById(item.sizeId)
-        let color = findColorById(item.colorId)
-        let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
-        let max = item.quantity
-
-        const resultQuantity = await ProductService.getQuantityProductById(item.productId)
-
-        if (resultQuantity.success) {
-
-          for (let quantity of resultQuantity.data) {
-            if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
-              max = quantity.quantity
-            }
-          }
-        }
-
-        productCarts.push({
-          ...item,
-          max: max,
-          name: item.productName,
-          description: description,
-          amount: item.quantity,
-          img: config.urlImageProduct + item.productImage,
-        })
-      }
-
-      setListProduct(productCarts)
-      setCarts(productCarts)
-    }
-  }
 
   const handleCheckout = () => {
     let ids = []
@@ -70,7 +26,7 @@ const Cart = () => {
       }
     }
     setCartsSelected(ids)
-    navigate('/thanh-toan')
+    navigate(config.routes.checkout)
   }
 
   useEffect(() => {
@@ -83,7 +39,7 @@ const Cart = () => {
       return curr
     }, 0))
 
-    if (listProduct.length > 0 && checked === listProduct.length) {
+    if (carts.length > 0 && checked === carts.length) {
       setCheckAll({ s: 0, c: true })
     } else {
       setCheckAll({ s: 0, c: false })
@@ -106,12 +62,13 @@ const Cart = () => {
 
   return (
     <div className="m-1 flex flex-col gap-2">
-      <HeaderCart quantity={listProduct.length} totalPrices={totalPrices}
+      <HeaderCart quantity={carts.length} totalPrices={totalPrices}
         checkAll={checkAll} setCheckAll={setCheckAll} />
-      {listProduct.map((item, index) => (
+      {carts.map((item, index) => (
         <ItemsCart key={index} index={index} item={item} totalPrice={totalPrices[index]}
           setTotalPrice={(price) => setPrice(index, price)} />
       ))}
+      {carts.length === 0 ? <h5>Không có sản phẩm nào cả</h5> : ''}
       <FooterTransition handleCheckout={handleCheckout} totalPrice={totalPrice} />
     </div>
   )
