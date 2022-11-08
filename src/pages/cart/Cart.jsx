@@ -6,48 +6,70 @@ import HeaderCart from './components/HeaderCart';
 import { AppContext } from '../../Providers/AppContext'
 import { ProductContext } from '../../Providers/ProductContext'
 import CartService from '../../services/CartService';
+import ProductService from '../../services/ProductService';
 import config from '../../config';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { carts, setCarts } = useContext(AppContext)
+  const navigate = useNavigate()
+  const { carts, setCartsSelected } = useContext(AppContext)
   const { isChange, findColorById, findSizeById } = useContext(ProductContext)
-  const [listProduct, setListProduct] = useState([])
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalPrices, setTotalPrices] = useState([])
+  const [checkAll, setCheckAll] = useState({ s: 0, c: false })
+
+  const handleCheckout = () => {
+    let ids = []
+    for (let index in totalPrices) {
+      if (totalPrices[index].selected) {
+        ids.push(carts[index].id)
+      }
+    }
+    setCartsSelected(ids)
+    navigate(config.routes.checkout)
+  }
 
   useEffect(() => {
-    fetchApiCart()
-  }, [isChange])
+    let checked = 0
+    setTotalPrice(totalPrices.reduce((curr, item) => {
+      if (item.selected) {
+        curr += item.price
+        checked++
+      }
+      return curr
+    }, 0))
 
-  const fetchApiCart = async () => {
-    const result = await CartService.getAll()
-    console.log(result)
-
-    if (result.success) {
-      let productCarts = result.data.map((item) => {
-        let size = findSizeById(item.sizeId)
-        let color = findColorById(item.colorId)
-
-        let description = (color ? color.name : '') + ', ' + size ? size.name : ''
-
-        return {
-          name: item.productName,
-          description: description,
-          amount: item.quantity,
-          price: item.price,
-          img: config.urlImageProduct + item.productImage,
-        }
-      })
-      setListProduct(productCarts)
-      setCarts(productCarts)
-      console.log(productCarts)
+    if (carts.length > 0 && checked === carts.length) {
+      setCheckAll({ s: 0, c: true })
+    } else {
+      setCheckAll({ s: 0, c: false })
     }
+  }, [totalPrices])
+
+  useEffect(() => {
+    if (checkAll.s === 1) {
+      setTotalPrices(prev => prev.map((item) => ({ ...item, selected: checkAll.c })))
+    }
+  }, [checkAll])
+
+  const setPrice = (index, price) => {
+    setTotalPrices(prev => {
+      let prices = [...prev]
+      prices[index] = price
+      return prices
+    })
   }
+
   return (
     <div className="m-1 flex flex-col gap-2">
-      <HeaderCart length={listProduct.length} />
-      {listProduct.map((item, index) => (
-        <ItemsCart key={index} item={item} />
+      <HeaderCart quantity={carts.length} totalPrices={totalPrices}
+        checkAll={checkAll} setCheckAll={setCheckAll} />
+      {carts.map((item, index) => (
+        <ItemsCart key={index} index={index} item={item} totalPrice={totalPrices[index]}
+          setTotalPrice={(price) => setPrice(index, price)} />
       ))}
-      <FooterTransition />
+      {carts.length === 0 ? <h5>Không có sản phẩm nào cả</h5> : ''}
+      <FooterTransition handleCheckout={handleCheckout} totalPrice={totalPrice} />
     </div>
   )
 }

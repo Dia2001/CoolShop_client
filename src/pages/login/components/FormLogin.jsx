@@ -81,7 +81,7 @@ const FormLogin = () => {
           <h5>Đăng nhập</h5>
         </button>
       </div>
-      <div class="w-[80%] mx-auto mt-3x mb-5x">
+      <div className="w-[80%] mx-auto mt-3x mb-5x">
         <h6 className="underline underline-offset-1 text-DarkBlue italic">Đăng ký tài khoản mới</h6>
       </div>
     </div>

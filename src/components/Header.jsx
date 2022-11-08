@@ -13,13 +13,17 @@ import MenuProfile from "./MenuProfile";
 import NotificationCart from "./NotificationCart";
 import HoverDropdown from "./HoverDropdown";
 import { AppContext } from '../Providers/AppContext'
+import useCarts from "../hooks/useCarts";
+import config from "../config";
 
 const Header = () => {
-  const { token, userLogin } = useContext(AppContext)
+  const { token, userLogin, carts } = useContext(AppContext)
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const [hoverDropdown, setHoverDropdown] = useState(false);
   const [closeTabs, setCloseTabs] = useState(false);
+
+  useCarts()
 
   const enterHandler = () => {
     setIsShowPanel(true);
@@ -51,7 +55,7 @@ const Header = () => {
       <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={() => setIsShowProfile(!isShowProfile)} />
 
       <div className="flex justify-between w-[1240px] mx-auto">
-        <Link to="/">
+        <Link to={config.routes.home}>
           <img src={logo} alt="logo" className="h-[40px] m-2x" />
         </Link>
         <div className="search m-2x flex gap-2 items-center">
@@ -71,7 +75,6 @@ const Header = () => {
             <img
               onClick={toggleShowProfile}
               onMouseEnter={() => setHoverDropdown(true)}
-              onM
               src={defaultuser}
               className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
               alt="Avatar"
@@ -80,13 +83,13 @@ const Header = () => {
           </div>
           <div className={`${isAuthenticated && 'hidden'} flex `}>
             <Link
-              to="/dang-nhap"
+              to={config.routes.login}
               className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
             >
               <h6 className="text-DarkBlue">Đăng nhập</h6>
             </Link>
             <Link
-              to="/dang-ky"
+              to={config.routes.register}
               className="relative mx-1x py-2x px-3x text-center items-center border-2  border-WarningColor flex"
             >
               <h6 className="text-WarningColor">Đăng ký</h6>
@@ -95,12 +98,12 @@ const Header = () => {
 
           <div className="relative">
             <Link
-              to="/thanh-toan"
+              to={config.routes.cart}
               className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
             >
 
               <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
-                0
+                {carts.length}
               </h6>
               <h6 className="mx-2">Giỏ hàng</h6>
               {/*hien thong bao khi them san pham vao! */}
@@ -109,7 +112,7 @@ const Header = () => {
             <NotificationCart />
           </div>
           <Link
-            to="/gio-hang"
+            to={config.routes.favorite}
             className={`${!isAuthenticated && 'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
@@ -124,14 +127,14 @@ const Header = () => {
         <div className="m-1x z-30">
           <nav className="flex gap-6 items-center h-[30px]">
             <NavLink
-              to="/"
+              to={config.routes.home}
               onMouseEnter={leaveHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
               <h6 className="font-semibold ml-4 mr-4">Trang chủ</h6>
             </NavLink>
             <NavLink
-              to="/san-pham"
+              to={config.routes.product}
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
@@ -139,7 +142,7 @@ const Header = () => {
               <ArrowD />
             </NavLink>
             <NavLink
-              to="/san-pham"
+              to={config.routes.product}
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
@@ -147,7 +150,7 @@ const Header = () => {
               <ArrowD />
             </NavLink>
             <NavLink
-              to="/san-pham"
+              to={config.routes.product}
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >

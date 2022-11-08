@@ -2,92 +2,63 @@ import React, { useEffect, useState } from 'react'
 import { MdFavoriteBorder as Heart } from 'react-icons/md'
 import { BsShieldFillCheck as Shield, BsArrowLeftRight as Return } from 'react-icons/bs'
 import { GiCardboardBoxClosed as Box } from 'react-icons/gi'
+import SelectQuantity from '../../../../components/Inputs/SelectQuantity'
 
 const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAddToCart }) => {
-  const [quantityOrder, setQuantityOrder] = useState(0)
   const [isCanChange, setIsCanChange] = useState(false)
+  const [isCanAddAndOrder, setIsCanAddAndOrder] = useState(false)
+  const [quantitySelect, setQuantitySelect] = useState(0)
 
   useEffect(() => {
-    if (quantity > 0) {
-      setQuantityOrder(1)
-    }
     if (colorIdSelected && sizeIdSelected) {
       setIsCanChange(true)
+      setQuantitySelect(1)
+      setIsCanAddAndOrder(false)
     } else {
+      setQuantitySelect(0)
       setIsCanChange(false)
+      setIsCanAddAndOrder(true)
     }
   }, [quantity, colorIdSelected, sizeIdSelected])
 
-  const handleChangeQuantity = (number) => {
-    const regexQuantity = /^\d+$/
-    if (regexQuantity.test(number)) {
-      let num = Number.parseInt(number)
-      if (num < 0) {
-        setQuantityOrder(0)
-      } else if (num > quantity) {
-        setQuantityOrder(quantity)
-      } else {
-        setQuantityOrder(num)
-      }
-    } else {
-      setQuantityOrder('')
+  useEffect(() => {
+    if (quantitySelect > 0) {
+      setIsCanAddAndOrder(true)
     }
-  }
+    console.log(quantitySelect)
+  }, [quantitySelect])
 
   const handleOrder = () => {
-
   }
+
+  const checkAddAndOrder = () => !isCanAddAndOrder || quantitySelect > quantity || quantitySelect === 0
 
   return (
     <div>
       <div className="flex justify-evenly py-1x items-start">
         <button
-          disabled={!isCanChange || quantityOrder === quantity}
-          onClick={() => handleAddToCart(quantityOrder)}
-          className={`px-5x py-2x bg-ActiveColor ${!isCanChange || quantityOrder === quantity ? 'opacity-75' : 'hover:opacity-75'} text-white font-bold`}>
+          disabled={checkAddAndOrder()}
+          onClick={() => handleAddToCart(quantitySelect)}
+          className={`px-5x py-2x bg-ActiveColor ${checkAddAndOrder() ? 'opacity-75' : 'hover:opacity-75'} text-white font-bold`}>
           <h6>Thêm vào giỏ hàng</h6>
         </button>
         <button className="p-1x text-white bg-ErrorColor hover:opacity-75">
           <Heart size={30} />
         </button>
-        {/* input number */}
-        <div className="custom-number-input h-10 w-32 ">
-          <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-            <button
-              data-action="decrement"
-              className={`bg-white border border-Black10 text-gray-600 h-full w-20 rounded-l outline-none ${isCanChange ? ' hover:text-gray-700 hover:bg-gray-400' : 'opacity-75'}`}
-              disabled={!isCanChange || quantityOrder === 0}
-              onClick={() => handleChangeQuantity(quantityOrder - 1)}
-            >
-              <span className="m-auto text-2xl font-thin">−</span>
-            </button>
-            <input
-              type="text"
-              min={0}
-              max={quantity}
-              readOnly={!isCanChange}
-              className="focus:outline-none text-center w-full bg-white border border-Black10 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700 outline-none"
-              name="custom-input-number"
-              value={quantityOrder}
-              onChange={(e) => handleChangeQuantity(e.target.value)}
-            ></input>
-            <button
-              data-action="increment"
-              className={`bg-white border border-Black10 text-gray-600 h-full w-20 rounded-l outline-none ${isCanChange ? ' hover:text-gray-700 hover:bg-gray-400' : 'opacity-75'}`}
-              disabled={!isCanChange || quantityOrder === quantity}
-              onClick={() => handleChangeQuantity(quantityOrder + 1)}
-            >
-              <span className="m-auto text-2xl font-thin">+</span>
-            </button>
-          </div>
-        </div>
+        <SelectQuantity
+          quantity={quantitySelect}
+          setQuantity={setQuantitySelect}
+          isCanChange={isCanChange}
+          max={quantity}
+          min={0}
+        ></SelectQuantity>
       </div>
       <div className="flex justify-center">
         <button
-          disabled={!isCanChange || quantityOrder === quantity}
+          disabled={checkAddAndOrder()}
           onClick={handleOrder}
-          className={`bg-DarkBlue uppercase text-white ${!isCanChange || quantityOrder === quantity ? 'opacity-75' : 'hover:opacity-75'} py-2x w-[70%] mx-auto text-center`}>
-          Đặt hàng
+          className={`bg-DarkBlue uppercase text-white ${checkAddAndOrder() ? 'opacity-75' : 'hover:opacity-75'} py-2x w-[70%] mx-auto text-center`}>
+          Thanh toán ngay
         </button>
       </div>
       <div className="flex justify-between items-center p-1x my-1x border">

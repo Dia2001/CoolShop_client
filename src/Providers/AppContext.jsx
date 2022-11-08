@@ -11,10 +11,22 @@ const ApplicationContext = ({ children }) => {
   const [userToken, setUserToken] = useState(token || ''); // Token khi user dang nhap 
   const [userLogin, setUserLogin] = useState(undefined) // Thong tin user dang dang nhap
   const [carts, setCarts] = useState([])
+  const [cartsSelected, setCartsSelected] = useState([])
 
   const logout = () => {
     setUserLogin(undefined)
     setUserToken('')
+  }
+
+  const getCartPayment = () => {
+    return carts.filter((cart) => {
+      for (let id of cartsSelected) {
+        if (cart.id === id) {
+          return true
+        }
+      }
+      return false
+    })
   }
 
   useEffect(() => {
@@ -29,7 +41,10 @@ const ApplicationContext = ({ children }) => {
       setUserLogin,
       logout,
       carts,
-      setCarts
+      setCarts,
+      getCartPayment,
+      cartsSelected,
+      setCartsSelected
     }}>
       {children}
     </AppContext.Provider>

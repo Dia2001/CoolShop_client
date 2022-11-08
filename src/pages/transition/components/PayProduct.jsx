@@ -1,46 +1,18 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
-import img from "../../../assets/product-o1.png";
-import {MdOutlineArrowBackIos as RightArrow} from 'react-icons/md'
-const PayProduct = () => {
-  const listProduct = [
-    //test code
-    {
-      name: "Quần jeans nam Ống suông co giãn thoáng mát",
-      description: "Xanh, size: XS",
-      amount: "2",
-      price: "400000Đ",
-      img: img,
-    },
-    {
-      name: "Quần jeans nam Ống suông co giãn thoáng mát",
-      description: "Xanh, size: XS",
-      amount: "2",
-      price: "400000Đ",
-      img: img,
-    },
-    {
-      name: "Quần jeans nam Ống suông co giãn thoáng mát",
-      description: "Xanh, size: XS",
-      amount: "2",
-      price: "400000Đ",
-      img: img,
-    },
-    {
-      name: "Quần jeans nam Ống suông co giãn thoáng mát Quần jeans nam Ống suông co giãn thoáng mát",
-      description: "Xanh, size: XS",
-      amount: "2",
-      price: "400000Đ",
-      img: img,
-    },
-    {
-      name: "Quần jeans nam Ống suông co giãn thoáng mát",
-      description: "Xanh, size: XS",
-      amount: "2",
-      price: "400000Đ",
-      img: img,
-    },
-  ];
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { MdOutlineArrowBackIos as RightArrow } from 'react-icons/md'
+import { enPriceVnd } from '../../../utils'
+import config from "../../../config";
+
+const PayProduct = ({ isPay, checkoutInfo, listProduct, handleCheckout }) => {
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  useEffect(() => {
+    let total = listProduct.reduce((curr, item) => curr + item.price * item.amount, 0)
+    total += checkoutInfo.priceShip
+    setTotalPrice(total)
+  }, [checkoutInfo, listProduct])
+
   return (
     <div className="w-[430px] min-h-[525px] text-center shadow-sm hover:shadow-md bg-white">
       <h5 className="font-bold text-LightBlue p-2">Sản phẩm thanh toán</h5>
@@ -61,11 +33,11 @@ const PayProduct = () => {
       </div>
       <div className="w-[380px] min-h-[60px] m-2 p-1 border border-Black75 flex justify-between">
         <div className="flex justify-between flex-col">
-            <h6>5 sản phẩm</h6>
-            <NavLink className="flex gap-1 text-WarningColor">
-              <RightArrow size={20}/>
-              <h6>Quay lại giỏ hàng</h6>
-            </NavLink>
+          <h6>5 sản phẩm</h6>
+          <Link to={config.routes.cart} className="flex gap-1 text-WarningColor">
+            <RightArrow size={20} />
+            <h6>Quay lại giỏ hàng</h6>
+          </Link>
         </div>
         <div className="flex justify-between flex-col">
           <div>
@@ -79,12 +51,13 @@ const PayProduct = () => {
             </div>
             <div className="flex justify-between m-1">
               <h6 className="font-bold">Tổng cộng:</h6>
-              <h6>800.000Đ</h6>
+              <h6>{enPriceVnd(totalPrice)}Đ</h6>
             </div>
           </div>
-          <Link to='/thanh-toan/thanh-cong' className="text-center uppercase text-white bg-LightBlue hover:bg-DarkBlue w-full p-1x">
+          <button onClick={handleCheckout} disabled={!isPay}
+            className={`text-center uppercase text-white bg-LightBlue ${!isPay ? ' opacity-75 cursor-not-allowed' : ' hover:bg-DarkBlue'} w-full p-1x`}>
             <h6>Thanh toán</h6>
-          </Link>
+          </button>
         </div>
       </div>
     </div>

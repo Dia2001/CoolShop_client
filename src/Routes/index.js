@@ -1,3 +1,4 @@
+import config from "../config";
 import DefaultLayout from "../layouts/DefaultLayout";
 import MenuTabLayout from "../layouts/MenuTabLayout";
 import Cart from "../pages/cart/Cart";
@@ -15,21 +16,21 @@ import Transition from "../pages/transition/Transition";
 
 
 const publicRoutes = [
-  { path: '/', component: Home, layout: DefaultLayout },
-  { path: '/san-pham', component: Product, layout: DefaultLayout },
-  { path: '/thanh-toan', component: Transition, layout: DefaultLayout },
-  { path: '/gio-hang', component: Cart, layout: MenuTabLayout },
-  { path: '/yeu-thich', component: Favorite, layout: MenuTabLayout },
-  { path: '/lich-su-mua-hang', component: Orders, layout: MenuTabLayout },
-  { path: '/san-pham/:slug', component: DetailProduct, layout: DefaultLayout },
-  { path: '/dang-nhap', component: Login, layout: DefaultLayout },
-  { path: '/dang-ky', component: Register, layout: DefaultLayout },
-  { path: '*', component: Error, layout: DefaultLayout },
-  { path: '/thanh-toan/thanh-cong', component: SuccessOrder, layout: DefaultLayout },
+  { path: config.routes.home, component: Home, layout: DefaultLayout },
+  { path: config.routes.product, component: Product, layout: DefaultLayout },
+  { path: config.routes.checkout, component: Transition, layout: DefaultLayout },
+  { path: config.routes.cart, component: Cart, layout: MenuTabLayout },
+  { path: config.routes.favorite, component: Favorite, layout: MenuTabLayout },
+  { path: config.routes.history, component: Orders, layout: MenuTabLayout },
+  { path: config.routes.product + '/:slug', component: DetailProduct, layout: DefaultLayout },
+  { path: config.routes.login, component: Login, layout: DefaultLayout },
+  { path: config.routes.register, component: Register, layout: DefaultLayout },
+  { path: config.routes.other, component: Error, layout: DefaultLayout },
+  { path: config.routes.checkoutComplete, component: SuccessOrder, layout: DefaultLayout },
 ];
 
 const privateRoutes = [
-  { path: '/thong-tin-ca-nhan', component: Profile, layout: MenuTabLayout },
+  { path: config.routes.profile, component: Profile, layout: MenuTabLayout },
 ]
 
 export { publicRoutes, privateRoutes };

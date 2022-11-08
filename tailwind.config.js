@@ -16,6 +16,15 @@ module.exports = {
       // => @media (min-width: 1280px) { ... }
     },
     extend: {
+      keyframes: {
+        slowShow: {
+          '0%': { opacity: 0},
+          '100%': { opacity: 1},
+        }
+      },
+      animation:{
+        slowShow: 'slowShow 0.5s ease-in-out'
+      },
       
       //customize own padding
       padding:{

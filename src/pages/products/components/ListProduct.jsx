@@ -1,6 +1,7 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 import CardProductV1 from '../../../components/CardProductV1';
+import config from '../../../config';
 
 const ListProduct = ({ products }) => {
   return (
@@ -19,9 +20,9 @@ const ListProduct = ({ products }) => {
       <div className="grid grid-cols-10 grid-rows-3 gap-3 m-2x min-h-[768px]">
         {products ? products.map((product, index) => (
           <div key={index} className="col-span-2 shadow-sm hover:shadow-md">
-            <NavLink to={`/san-pham/${product.slug}`}>
+            <NavLink to={`${config.routes.product}/${product.slug}`}>
               <CardProductV1 product={product} />
-              </NavLink>
+            </NavLink>
           </div>
         )) : ''}
       </div>
