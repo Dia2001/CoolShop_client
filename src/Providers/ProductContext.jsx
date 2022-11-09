@@ -72,7 +72,8 @@ const ProductContextProvider = ({ children }) => {
       findSizeById,
       findColorById,
       findBrandById,
-      isChange
+      isChange,
+      setIsChange
     }}>
       {children}
     </ProductContext.Provider>

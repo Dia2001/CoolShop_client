@@ -13,8 +13,6 @@ const ListOrders = ({ orders, typeShow }) => {
     } else {
       ordersTmp = orders.filter(order => order.orderStatusId === typeShow)
     }
-
-    console.log(orders, typeShow, ordersTmp)
     setOrderShow(ordersTmp)
   }, [typeShow, orders])
 

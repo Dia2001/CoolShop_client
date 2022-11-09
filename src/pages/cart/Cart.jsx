@@ -1,19 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import FooterTransition from './components/FooterTransition'
-import img from "../../assets/product-o1.png";
 import ItemsCart from './components/ItemsCart';
 import HeaderCart from './components/HeaderCart';
 import { AppContext } from '../../Providers/AppContext'
-import { ProductContext } from '../../Providers/ProductContext'
-import CartService from '../../services/CartService';
-import ProductService from '../../services/ProductService';
 import config from '../../config';
 import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const navigate = useNavigate()
   const { carts, setCartsSelected } = useContext(AppContext)
-  const { isChange, findColorById, findSizeById } = useContext(ProductContext)
   const [totalPrice, setTotalPrice] = useState(0)
   const [totalPrices, setTotalPrices] = useState([])
   const [checkAll, setCheckAll] = useState({ s: 0, c: false })

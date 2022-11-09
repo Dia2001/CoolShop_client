@@ -46,7 +46,6 @@ const DetailProduct = () => {
         })
       }
 
-      console.log(images)
       setImagesProduct(images)
     }
   }

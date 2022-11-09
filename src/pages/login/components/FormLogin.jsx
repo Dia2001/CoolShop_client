@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import imgLogo from "../../../assets/logo.png";
 import AuthService from "../../../services/AuthService";
 import { AppContext } from '../../../Providers/AppContext'
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { HiOutlineEyeOff as EyeOff, HiOutlineEye as Eye } from "react-icons/hi";
 import config from "../../../config";
@@ -29,7 +29,7 @@ const FormLogin = () => {
 
     if (result.success) {
       localStorage.setItem("token", result.data)
-      setToken(result.data)
+      setToken('Đăng ký thành công! Hãy đăng nhập để sử dụng dịch vụ.')
       navigate("/")
     } else {
       alert('Tên tài khoản hoặc mật khẩu không chính xác!')
@@ -81,9 +81,10 @@ const FormLogin = () => {
           <h5>Đăng nhập</h5>
         </button>
       </div>
-      <div className="w-[80%] mx-auto mt-3x mb-5x">
+      <Link to={config.routes.register}
+        className="w-[80%] block mx-auto mt-3x mb-5x">
         <h6 className="underline underline-offset-1 text-DarkBlue italic">Đăng ký tài khoản mới</h6>
-      </div>
+      </Link>
     </div>
   );
 };

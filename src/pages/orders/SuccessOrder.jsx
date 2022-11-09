@@ -16,7 +16,6 @@ const SuccessOrder = () => {
 
   useEffect(() => {
     const id = setInterval(() => setCount((oldCount) => oldCount - 1), 1000);
-    console.log(count);
     return () => {
       clearInterval(id);
     };

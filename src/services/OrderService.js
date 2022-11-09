@@ -42,7 +42,7 @@ async function order(order) {
       body: JSON.stringify(order)
     })
 
-    if (response.status === 200) {
+    if (response.status === 201) {
       const result = await response.json()
       return {
         success: true,

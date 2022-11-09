@@ -47,15 +47,17 @@ async function addProductToCart(productId, sizeId, colorId, quantity) {
       })
     })
 
-    if (response.status === 201) {
-      const result = await response.json()
+    const result = await response.json()
+    if (response.status === 201 || response.status === 200) {
       return {
         success: true,
-        data: result
+        code: response.status,
+        data: result.message
       }
     } else {
       return {
         success: false,
+        code: response.status,
         data: []
       }
     }

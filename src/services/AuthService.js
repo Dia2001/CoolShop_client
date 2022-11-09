@@ -77,14 +77,52 @@ async function getProfile(tokenParam) {
   }
 }
 
+async function register(fullName, userName, phoneNumber, password) {
+  try {
+    const response = await fetch(`${config.BASE_API}/users`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({
+        fullName: fullName,
+        userName: userName,
+        phoneNumber: phoneNumber,
+        password: password
+      })
+    })
+
+    const result = await response.text()
+
+    if (response.status === 201) {
+      return {
+        success: true,
+        data: result
+      }
+    } else {
+      return {
+        success: false,
+        data: result
+      }
+    }
+
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false,
+      data: ''
+    }
+  }
+}
+
 const AuthService = {
   login,
-  getProfile
+  getProfile,
+  register
 }
 
 export {
   login,
-  getProfile
+  getProfile,
+  register
 }
 
 export default AuthService

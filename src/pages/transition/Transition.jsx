@@ -72,7 +72,7 @@ const Transition = () => {
       let total = listProduct.reduce((curr, item) => curr + item.price * item.amount, 0)
         + checkoutInfo.priceShip
       localStorage.setItem('priceOrder', total)
-      localStorage.setItem('orderId', result.data)
+      localStorage.setItem('orderId', result.data.data)
       navigate(config.routes.checkoutComplete)
     } else {
       alert("Có lỗi!")

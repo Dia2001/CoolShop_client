@@ -14,7 +14,7 @@ function Orders() {
 
   useEffect(() => {
     getOrders()
-  }, [])
+  }, [isChange])
 
   const getOrders = async () => {
     const result = await OrderService.getAll()

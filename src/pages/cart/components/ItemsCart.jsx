@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import {
   BsPencilSquare as Modify,
   BsFillCartDashFill as RemoveCart,
@@ -7,17 +7,17 @@ import SelectQuantity from "../../../components/Inputs/SelectQuantity";
 //thu vien them tooltip
 import Tippy from '@tippyjs/react';
 import 'tippy.js/dist/tippy.css'; // optional
-// import ProductService from "../../../services/ProductService";
+import CartService from "../../../services/CartService";
+import { ProductContext } from '../../../Providers/ProductContext'
 
-const ItemsCart = ({ item, totalPrice, setTotalPrice }) => {
+const ItemsCart = ({ index, item, totalPrice, setTotalPrice }) => {
+  const { setIsChange } = useContext(ProductContext)
   const [quantitySelect, setQuantitySelect] = useState(0)
-  // const [max, setMax] = useState(item.quantity)
   const [selected, setSelected] = useState(totalPrice ? totalPrice.selected : false)
 
   useEffect(() => {
     setQuantitySelect(item.quantity)
-    // fetchApiGetProduct(item.productId)
-  }, [])
+  })
 
   useEffect(() => {
     if (totalPrice) {
@@ -32,19 +32,21 @@ const ItemsCart = ({ item, totalPrice, setTotalPrice }) => {
     })
   }, [quantitySelect, selected])
 
-  //
-  // const fetchApiGetProduct = async (productId) => {
-  //   const resultQuantity = await ProductService.getQuantityProductById(productId)
-  //
-  //   if (resultQuantity.success) {
-  //
-  //     for (let quantity of resultQuantity.data) {
-  //       if (quantity.colorId === item.colorId && quantity.sizeId === item.sizeId) {
-  //         setMax(quantity.quantity)
-  //       }
-  //     }
-  //   }
-  // }
+  const dispatchChangeQuantity = async (quantity) => {
+    const tmp = quantity - quantitySelect
+
+    if (tmp !== 0) {
+      const result = await CartService.addProductToCart(item.productId, item.sizeId, item.colorId, tmp)
+      if (result.success) {
+        if (result.code === 200) {
+          alert(result.data)
+        }
+        setIsChange(prev => prev + 1)
+        return true
+      }
+    }
+    return false
+  }
 
   return (
     <div className="relative gap-2 flex shadow-md bg-white ">
@@ -79,6 +81,7 @@ const ItemsCart = ({ item, totalPrice, setTotalPrice }) => {
         quantity={quantitySelect}
         setQuantity={setQuantitySelect}
         isCanChange={true}
+        dispatch={dispatchChangeQuantity}
         max={item.max}
         min={0}
       ></SelectQuantity>

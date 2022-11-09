@@ -1,19 +1,31 @@
 import { useState, useEffect } from "react"
 
-function SelectQuantity({ quantity, setQuantity, isCanChange, max, min }) {
+function SelectQuantity({ quantity, setQuantity, isCanChange, max, min, dispatch }) {
 
   const [quantityTmp, setQuantityTmp] = useState(0)
 
-  const handleChangeQuantity = (number) => {
+  const handleChangeQuantity = async (number) => {
     const regexQuantity = /^\d+$/
     if (regexQuantity.test(number)) {
       let num = Number.parseInt(number)
       if (num < 0) {
-        setQuantityTmp(0)
+        if (typeof dispatch === 'function') {
+          if (await dispatch(num)) {
+            setQuantityTmp(0)
+          }
+        } else {
+          setQuantityTmp(0)
+        }
       } else if (num > max) {
         setQuantityTmp(max)
       } else {
-        setQuantityTmp(num)
+        if (typeof dispatch === 'function') {
+          if (await dispatch(num)) {
+            setQuantityTmp(num)
+          }
+        } else {
+          setQuantityTmp(num)
+        }
       }
     } else {
       setQuantityTmp('')
