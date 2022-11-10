@@ -29,7 +29,7 @@ const FormLogin = () => {
 
     if (result.success) {
       localStorage.setItem("token", result.data)
-      setToken('Đăng ký thành công! Hãy đăng nhập để sử dụng dịch vụ.')
+      setToken(result.data)
       navigate("/")
     } else {
       alert('Tên tài khoản hoặc mật khẩu không chính xác!')
