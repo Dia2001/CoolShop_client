@@ -9,20 +9,16 @@ function SelectQuantity({ quantity, setQuantity, isCanChange, max, min, dispatch
     if (regexQuantity.test(number)) {
       let num = Number.parseInt(number)
       if (num < 0) {
-        if (typeof dispatch === 'function') {
-          if (await dispatch(num)) {
-            setQuantityTmp(0)
-          }
+        if (typeof dispatch === 'function' && await dispatch(num)) {
+          setQuantityTmp(num)
         } else {
           setQuantityTmp(0)
         }
       } else if (num > max) {
         setQuantityTmp(max)
       } else {
-        if (typeof dispatch === 'function') {
-          if (await dispatch(num)) {
-            setQuantityTmp(num)
-          }
+        if (typeof dispatch === 'function' && await dispatch(num)) {
+          setQuantityTmp(num)
         } else {
           setQuantityTmp(num)
         }
@@ -34,7 +30,7 @@ function SelectQuantity({ quantity, setQuantity, isCanChange, max, min, dispatch
 
   useEffect(() => {
     setQuantityTmp(quantity)
-  }, [quantity])
+  }, [quantity, isCanChange])
 
   useEffect(() => {
     if (quantityTmp === '') {

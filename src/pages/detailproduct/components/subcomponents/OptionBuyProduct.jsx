@@ -25,7 +25,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAdd
     if (quantitySelect > 0) {
       setIsCanAddAndOrder(true)
     }
-  }, [quantitySelect])
+  }, [quantitySelect, quantity, colorIdSelected, sizeIdSelected])
 
   const handleOrder = () => {
   }
