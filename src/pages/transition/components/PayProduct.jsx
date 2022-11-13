@@ -32,14 +32,14 @@ const PayProduct = ({ isPay, checkoutInfo, listProduct, handleCheckout }) => {
         ))}
       </div>
       <div className="w-[380px] min-h-[60px] m-2 p-1 border border-Black75 flex justify-between">
-        <div className="flex justify-between flex-col">
+        <div className="flex justify-between basis-1/3 flex-col">
           <h6>5 sản phẩm</h6>
-          <Link to={config.routes.cart} className="flex gap-1 text-WarningColor">
+          <Link to={config.routes.cart} className="flex gap-1 text-WarningColor items-center">
             <RightArrow size={20} />
-            <h6>Quay lại giỏ hàng</h6>
+            <h6>Về giỏ hàng</h6>
           </Link>
         </div>
-        <div className="flex justify-between flex-col">
+        <div className="flex justify-between basis-2/3 flex-col">
           <div>
             <div className="flex justify-between m-1">
               <h6>Tạm tính:</h6>

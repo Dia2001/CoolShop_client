@@ -13,7 +13,7 @@ import Product from "../pages/products/Product";
 import Profile from "../pages/profile/Profile";
 import Register from "../pages/register/Register";
 import Transition from "../pages/transition/Transition";
-
+import OrderDetail from "../pages/orderdetail/OrderDetail";
 
 const publicRoutes = [
   { path: config.routes.home, component: Home, layout: DefaultLayout },
@@ -27,6 +27,8 @@ const publicRoutes = [
   { path: config.routes.register, component: Register, layout: DefaultLayout },
   { path: config.routes.other, component: Error, layout: DefaultLayout },
   { path: config.routes.checkoutComplete, component: SuccessOrder, layout: DefaultLayout },
+  {path: config.routes.orderDetail,component:OrderDetail,layout:DefaultLayout}
+  
 ];
 
 const privateRoutes = [

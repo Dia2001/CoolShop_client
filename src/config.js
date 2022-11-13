@@ -12,7 +12,8 @@ const config = {
     register: '/dang-ky',
     other: '*',
     checkoutComplete: '/thanh-cong/thanh-cong',
-    profile: '/thong-tin-ca-nhan'
+    profile: '/thong-tin-ca-nhan',
+    orderDetail:'/chi-tiet-don-hang'
   }
 }
 

@@ -4,26 +4,24 @@ import defaultuser from "../assets/defaultuser.png";
 import { BsSearch } from "react-icons/bs";
 import { CgShoppingCart as Cart } from "react-icons/cg";
 import { MdFavoriteBorder as Favorite } from "react-icons/md";
-import {
-  MdKeyboardArrowDown as ArrowD,
-} from "react-icons/md";
+import { MdKeyboardArrowDown as ArrowD } from "react-icons/md";
 import imgModel from "../assets/anh-mau.jpg";
 import { Link, NavLink } from "react-router-dom";
 import MenuProfile from "./MenuProfile";
 import NotificationCart from "./NotificationCart";
 import HoverDropdown from "./HoverDropdown";
-import { AppContext } from '../Providers/AppContext'
+import { AppContext } from "../Providers/AppContext";
 import useCarts from "../hooks/useCarts";
 import config from "../config";
 
 const Header = () => {
-  const { token, userLogin, carts } = useContext(AppContext)
+  const { token, userLogin, carts } = useContext(AppContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const [hoverDropdown, setHoverDropdown] = useState(false);
   const [closeTabs, setCloseTabs] = useState(false);
 
-  useCarts()
+  useCarts();
 
   const enterHandler = () => {
     setIsShowPanel(true);
@@ -32,7 +30,7 @@ const Header = () => {
   const CloseTabsHandler = () => {
     setCloseTabs(true);
     setIsShowPanel(false);
-  }
+  };
   const leaveHandler = () => {
     setIsShowPanel(false);
   };
@@ -40,19 +38,23 @@ const Header = () => {
   const toggleShowProfile = () => {
     setIsShowProfile(!isShowProfile);
     setHoverDropdown(false);
-  }
+    console.log('toggleShowProfile')
+  };
 
   useEffect(() => {
-    if (token !== '' && userLogin) {
-      setIsAuthenticated(true)
+    if (token !== "" && userLogin) {
+      setIsAuthenticated(true);
     } else {
-      setIsAuthenticated(false)
+      setIsAuthenticated(false);
     }
-  }, [token, userLogin])
+  }, [token, userLogin]);
 
   return (
     <div className="sticky w-full transition top-0  bg-white shadow-sm z-40">
-      <MenuProfile isShowProfile={isShowProfile} setIsShowProfile={() => setIsShowProfile(!isShowProfile)} />
+      <MenuProfile
+        isShowProfile={isShowProfile}
+        setIsShowProfile={() => setIsShowProfile(!isShowProfile)}
+      />
 
       <div className="flex justify-between w-[1240px] mx-auto">
         <Link to={config.routes.home}>
@@ -70,18 +72,28 @@ const Header = () => {
           </button>
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
-          <div className={`${!isAuthenticated && 'hidden'} relative flex gap-4 items-center`}>
-            <h6 className="font-bold">{userLogin ? userLogin.fullName : ''}</h6>
-            <img
-              onClick={toggleShowProfile}
-              onMouseEnter={() => setHoverDropdown(true)}
-              src={defaultuser}
-              className="avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
-              alt="Avatar"
-            />
-            <HoverDropdown isVisible={hoverDropdown} setIsVisible={() => setHoverDropdown(false)} />
+          <div
+            className={`${
+              !isAuthenticated && "hidden"
+            } flex gap-4 items-center`}
+          >
+            <h6 className="font-bold">{userLogin ? userLogin.fullName : ""}</h6>
+            <div className="relative !z-10">
+              <img
+                onClick={toggleShowProfile} 
+                onMouseEnter={() => setHoverDropdown(true)}
+                src={defaultuser}
+                // neu minh khong set relative cho img thi z-index khong hoat dong
+                className="relative avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
+                alt="Avatar"
+              />
+             <HoverDropdown
+                isVisible={hoverDropdown}
+                setIsVisible={() => setHoverDropdown(false)}
+              />
+            </div>
           </div>
-          <div className={`${isAuthenticated && 'hidden'} flex `}>
+          <div className={`${isAuthenticated && "hidden"} flex `}>
             <Link
               to={config.routes.login}
               className="relative mx-1x py-2x px-3x text-center items-center border-2  border-DarkBlue flex"
@@ -101,7 +113,6 @@ const Header = () => {
               to={config.routes.cart}
               className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
             >
-
               <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
                 {carts.length}
               </h6>
@@ -113,7 +124,9 @@ const Header = () => {
           </div>
           <Link
             to={config.routes.favorite}
-            className={`${!isAuthenticated && 'hidden'} relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
+            className={`${
+              !isAuthenticated && "hidden"
+            } relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
               0
@@ -138,7 +151,9 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Nam</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
+                Nam
+              </h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -146,7 +161,9 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Nữ</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
+                Nữ
+              </h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -154,7 +171,9 @@ const Header = () => {
               onMouseEnter={enterHandler}
               className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
             >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">Quý ông</h6>
+              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
+                Quý ông
+              </h6>
               <ArrowD />
             </NavLink>
             <NavLink
@@ -181,10 +200,15 @@ const Header = () => {
       <div
         onMouseEnter={enterHandler}
         onMouseLeave={leaveHandler}
-        className={`${!isShowPanel && "hidden"
-          } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
+        className={`${
+          !isShowPanel && "hidden"
+        } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
       >
-        <div className={`${closeTabs && 'hidden'} absolute w-full h-[60px] top-[-60px] left-0`}></div>
+        <div
+          className={`${
+            closeTabs && "hidden"
+          } absolute w-full h-[60px] top-[-60px] left-0`}
+        ></div>
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
             <h6 className="font-bold">Áo</h6>
@@ -227,8 +251,9 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`${!isShowPanel && "hidden"
-          } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
+        className={`${
+          !isShowPanel && "hidden"
+        } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
       ></div>
     </div>
   );

@@ -5,7 +5,7 @@ const Error = () => {
   return (
     <div className="h-[100vh] bg-Black5 flex justify-center items-center">
       <div className="w-[610px] bg-white shadow-sm">
-        <h1 className="text-MainBlue text-center">404 :(</h1>
+        <h1 className="text-ErrorColor/75 text-center">404 :(</h1>
         <h4 className="text-center">Không tìm thấy trang !</h4>
         <div className="flex justify-between p-1x">
           <Link to="/" className="bg-DarkBlue self-end hover:opacity-75 text-white font-semibold w-fit h-fit p-1x">
