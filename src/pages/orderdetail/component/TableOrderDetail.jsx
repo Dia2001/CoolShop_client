@@ -56,9 +56,9 @@ const TableOrderDetail = () => {
   ];
   return (
     <div class="flex flex-col">
-      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
-        <div class="py-2x inline-block min-w-full sm:px-6 lg:px-8 shadow-md">
-          <div class="overflow-hidden rounded-[6px] ">
+      <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 rounded-[6px] ">
+        <div class="py-2x inline-block  min-w-full sm:px-6 lg:px-8 shadow-md">
+          <div class="overflow-hidden ">
             <table class="min-w-full">
               <thead class="bg-white border-b border-Black25">
                 <tr>

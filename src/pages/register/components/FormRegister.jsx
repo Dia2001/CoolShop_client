@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { HiOutlineEyeOff as EyeOff, HiOutlineEye as Eye } from "react-icons/hi";
 import ReCAPTCHA from "react-google-recaptcha";
 import { isName, isVietnamesePhoneNumber } from '../../../utils/Validate'
@@ -49,7 +49,23 @@ const FormRegister = () => {
       navegate(config.routes.login)
     }
   }
+  // useEffect(() => {
+  //   const keyDownHandler = event => {
+  //     if (event.key === 'Enter') {
+  //       event.preventDefault();
 
+  //       // 👇️ your logic here
+  //       handleRegister();
+  //     }
+  //   };
+
+  //   document.addEventListener('keydown', keyDownHandler);
+
+  //   return () => {
+  //     document.removeEventListener('keydown', keyDownHandler);
+  //   };
+  // }, []);
+  
   const changeVerfied = (value) => {
     setVerifed(!verfied);
   };
