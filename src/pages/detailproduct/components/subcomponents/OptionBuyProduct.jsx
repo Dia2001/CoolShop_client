@@ -4,7 +4,7 @@ import { BsShieldFillCheck as Shield, BsArrowLeftRight as Return } from 'react-i
 import { GiCardboardBoxClosed as Box } from 'react-icons/gi'
 import SelectQuantity from '../../../../components/Inputs/SelectQuantity'
 
-const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAddToCart }) => {
+const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAddToCart, handleOrder }) => {
   const [isCanChange, setIsCanChange] = useState(false)
   const [isCanAddAndOrder, setIsCanAddAndOrder] = useState(false)
   const [quantitySelect, setQuantitySelect] = useState(0)
@@ -26,9 +26,6 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAdd
       setIsCanAddAndOrder(true)
     }
   }, [quantitySelect, quantity, colorIdSelected, sizeIdSelected])
-
-  const handleOrder = () => {
-  }
 
   const checkAddAndOrder = () => !isCanAddAndOrder || quantitySelect > quantity || quantitySelect === 0
 
@@ -55,7 +52,7 @@ const OptionBuyProduct = ({ quantity, colorIdSelected, sizeIdSelected, handleAdd
       <div className="flex justify-center">
         <button
           disabled={checkAddAndOrder()}
-          onClick={handleOrder}
+          onClick={() => handleOrder(quantitySelect)}
           className={`bg-DarkBlue uppercase text-white ${checkAddAndOrder() ? 'opacity-75' : 'hover:opacity-75'} py-2x w-[70%] mx-auto text-center`}>
           Thanh toán ngay
         </button>

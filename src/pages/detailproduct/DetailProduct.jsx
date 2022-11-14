@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import config from "../../config";
 import GalleryService from "../../services/GalleryService";
 import ProductService from "../../services/ProductService";
@@ -13,6 +13,7 @@ import PopupFormReview from "./components/subcomponents/PopupFormReview";
 import ProductDetailContext from './ProductDetailContext'
 
 const DetailProduct = () => {
+  const navigate = useNavigate()
   const [popUp, setPopUp] = useState(false);
   const params = useParams()
   const productSlug = params.slug
@@ -47,6 +48,8 @@ const DetailProduct = () => {
       }
 
       setImagesProduct(images)
+    } else {
+      navigate(config.routes.other)
     }
   }
 

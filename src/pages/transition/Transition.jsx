@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import InfroDeliver from "./components/InfroDeliver";
 import PayProduct from "./components/PayProduct";
 import { AppContext } from '../../Providers/AppContext'
@@ -9,21 +9,31 @@ import config from "../../config";
 
 const Transition = () => {
   const navigate = useNavigate()
-  const { getCartPayment } = useContext(AppContext)
+  const { userLogin, getCartPayment } = useContext(AppContext)
   const [listProduct, setListProduct] = useState([])
   const [isPay, setIsPay] = useState(false)
   const [checkoutInfo, setCheckoutInfo] = useState({
-    nameShip: '',
-    phoneShip: '',
-    addressShip: '',
+    nameShip: userLogin && userLogin.fullName ? userLogin.fullName : '',
+    phoneShip: userLogin && userLogin.phoneNumber ? userLogin.phoneNumber : '',
+    addressShip: userLogin && userLogin.address ? userLogin.address : '',
     note: '',
     priceShip: 0,
     paymentType: '',
     paymentTypeName: ''
   })
+  const ref = useRef(false)
 
   useEffect(() => {
-    setListProduct(getCartPayment())
+    let cartsPayment = getCartPayment()
+    if (cartsPayment && cartsPayment.length > 0) {
+      setListProduct(cartsPayment)
+    } else {
+      if (!ref.current) {
+        ref.current = true
+        alert('Hiện chưa có sản phẩm nào!')
+      }
+      navigate(config.routes.product)
+    }
   }, [])
 
   useEffect(() => {
@@ -31,10 +41,6 @@ const Transition = () => {
   }, [checkoutInfo, listProduct])
 
   const validateCheckoutInfo = () => {
-    if (checkoutInfo.note === '') {
-      return false
-    }
-
     if (!isName(checkoutInfo.nameShip)) {
       return false
     }
@@ -59,23 +65,24 @@ const Transition = () => {
   }
 
   const handleCheckout = async () => {
-    const order = {
-      ...checkoutInfo,
-      orderDetail: [
-        ...listProduct
-      ]
-    }
+    if (isPay) {
+      const order = {
+        ...checkoutInfo,
+        orderDetail: [
+          ...listProduct
+        ]
+      }
+      const result = await OrderService.order(order)
 
-    const result = await OrderService.order(order)
-
-    if (result.success) {
-      let total = listProduct.reduce((curr, item) => curr + item.price * item.amount, 0)
-        + checkoutInfo.priceShip
-      localStorage.setItem('priceOrder', total)
-      localStorage.setItem('orderId', result.data.data)
-      navigate(config.routes.checkoutComplete)
-    } else {
-      alert("Có lỗi!")
+      if (result.success) {
+        let total = listProduct.reduce((curr, item) => curr + item.price * item.amount, 0)
+          + checkoutInfo.priceShip
+        localStorage.setItem('priceOrder', total)
+        localStorage.setItem('orderId', result.data.data)
+        navigate(config.routes.checkoutComplete)
+      } else {
+        alert("Có lỗi!")
+      }
     }
   }
 

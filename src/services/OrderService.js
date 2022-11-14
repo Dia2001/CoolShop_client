@@ -34,6 +34,37 @@ async function getAll() {
   }
 }
 
+
+async function getOrderById(orderId) {
+  try {
+    const response = await fetch(`${config.BASE_API}/orders/${orderId}`, {
+      method: 'GET',
+      headers: getHeaders()
+    })
+
+    const result = await response.json()
+
+    if (response.status === 200) {
+      return {
+        success: true,
+        data: result
+      }
+    } else {
+      return {
+        success: false,
+        data: []
+      }
+    }
+
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false,
+      data: []
+    }
+  }
+}
+
 async function order(order) {
   try {
     const response = await fetch(`${config.BASE_API}/orders`, {
@@ -66,6 +97,7 @@ async function order(order) {
 
 const OrderService = {
   getAll,
+  getOrderById,
   order
 }
 

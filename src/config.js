@@ -13,7 +13,7 @@ const config = {
     other: '*',
     checkoutComplete: '/thanh-cong/thanh-cong',
     profile: '/thong-tin-ca-nhan',
-    orderDetail:'/chi-tiet-don-hang'
+    orderDetail: '/chi-tiet-don-hang',
   }
 }
 

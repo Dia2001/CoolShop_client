@@ -38,7 +38,6 @@ const Header = () => {
   const toggleShowProfile = () => {
     setIsShowProfile(!isShowProfile);
     setHoverDropdown(false);
-    console.log('toggleShowProfile')
   };
 
   useEffect(() => {
@@ -73,21 +72,20 @@ const Header = () => {
         </div>
         <div className="profile flex items-center justify-between m-2x cursor-pointer">
           <div
-            className={`${
-              !isAuthenticated && "hidden"
-            } flex gap-4 items-center`}
+            className={`${!isAuthenticated && "hidden"
+              } flex gap-4 items-center`}
           >
             <h6 className="font-bold">{userLogin ? userLogin.fullName : ""}</h6>
             <div className="relative !z-10">
               <img
-                onClick={toggleShowProfile} 
+                onClick={toggleShowProfile}
                 onMouseEnter={() => setHoverDropdown(true)}
                 src={defaultuser}
                 // neu minh khong set relative cho img thi z-index khong hoat dong
                 className="relative avt h-[40px] w-[40px] rounded-full hover:shadow-md z-20"
                 alt="Avatar"
               />
-             <HoverDropdown
+              <HoverDropdown
                 isVisible={hoverDropdown}
                 setIsVisible={() => setHoverDropdown(false)}
               />
@@ -124,9 +122,8 @@ const Header = () => {
           </div>
           <Link
             to={config.routes.favorite}
-            className={`${
-              !isAuthenticated && "hidden"
-            } relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
+            className={`${!isAuthenticated && "hidden"
+              } relative mx-1x py-2x px-3x text-center items-center border border-solid border-BlackCool flex`}
           >
             <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ErrorColor rounded-full shadow-sm px-2">
               0
@@ -200,14 +197,12 @@ const Header = () => {
       <div
         onMouseEnter={enterHandler}
         onMouseLeave={leaveHandler}
-        className={`${
-          !isShowPanel && "hidden"
-        } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
+        className={`${!isShowPanel && "hidden"
+          } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
       >
         <div
-          className={`${
-            closeTabs && "hidden"
-          } absolute w-full h-[60px] top-[-60px] left-0`}
+          className={`${closeTabs && "hidden"
+            } absolute w-full h-[60px] top-[-60px] left-0`}
         ></div>
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
@@ -251,9 +246,8 @@ const Header = () => {
         </div>
       </div>
       <div
-        className={`${
-          !isShowPanel && "hidden"
-        } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
+        className={`${!isShowPanel && "hidden"
+          } absolute left-0 bg-BlackCool opacity-50 h-[200vh] z-10 w-full`}
       ></div>
     </div>
   );

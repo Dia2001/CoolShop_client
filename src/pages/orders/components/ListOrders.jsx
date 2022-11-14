@@ -49,7 +49,7 @@ const ListOrders = ({ orders, typeShow }) => {
             </div>
           ))}
           <div className="flex p-1x mt-3x mb-2x justify-between">
-            <Link to={config.routes.orderDetail} className="w-fit font-bold h-fit p-1x rounded-[6px] border border-DarkBlue text-DarkBlue hover:bg-DarkBlue hover:text-white transition">
+            <Link to={config.routes.orderDetail + '/' + item.orderId} className="w-fit font-bold h-fit p-1x rounded-[6px] border border-DarkBlue text-DarkBlue hover:bg-DarkBlue hover:text-white transition">
               <h6>Xem chi tiết</h6>
             </Link>
             <h5>Tổng cộng: {enPriceVnd(item.totalPrice)}Đ</h5>

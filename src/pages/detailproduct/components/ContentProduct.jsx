@@ -3,14 +3,19 @@ import IntroProduct from "./subcomponents/IntroProduct";
 import OptionBuyProduct from "./subcomponents/OptionBuyProduct";
 import OptionsProduct from "./subcomponents/OptionsProduct";
 import PriceAndQuality from "./subcomponents/PriceAndQuality";
+import { AppContext } from "../../../Providers/AppContext";
 import { ProductDetailContext } from '../ProductDetailContext'
 import CartService from '../../../services/CartService'
 import useCarts from '../../../hooks/useCarts'
 import { ProductContext } from "../../../Providers/ProductContext";
+import { useNavigate } from "react-router-dom";
+import config from "../../../config";
 
 const ContentProduct = () => {
+  const navigate = useNavigate()
+  const { setCartsSelected } = useContext(AppContext)
   const { product, quantities, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
-  const { setIsChange } = useContext(ProductContext)
+  const { setIsChange, findSizeById, findColorById } = useContext(ProductContext)
   const [colorIdSelected, setColorIdSelected] = useState()
   const [sizeIdSelected, setSizeIdSelected] = useState()
   const [quantity, setQuantity] = useState(0)
@@ -35,6 +40,23 @@ const ContentProduct = () => {
     }
   }
 
+  const handleOrder = (quantityOrder) => {
+    let size = findSizeById(sizeIdSelected)
+    let color = findColorById(colorIdSelected)
+    let description = `Màu: ${color ? color.name : ''} , Size: ${size ? size.name : ''}`
+    setCartsSelected({
+      ...product,
+      description: description,
+      max: getQuantityByColorIdAndSizeId(colorIdSelected, sizeIdSelected),
+      img: config.urlImageProduct + '/' + product.image,
+      quantity: quantityOrder,
+      productName: product.name,
+      productImage: product.image,
+      amount: quantityOrder
+    })
+    navigate(config.routes.checkout)
+  }
+
   return (
     <div className="grow p-2x mt-1 border-l">
       <IntroProduct />
@@ -48,7 +70,8 @@ const ContentProduct = () => {
         quantity={quantity}
         colorIdSelected={colorIdSelected}
         sizeIdSelected={sizeIdSelected}
-        handleAddToCart={handleAddToCart} />
+        handleAddToCart={handleAddToCart}
+        handleOrder={handleOrder} />
     </div>
   );
 };

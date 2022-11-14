@@ -19,14 +19,18 @@ const ApplicationContext = ({ children }) => {
   }
 
   const getCartPayment = () => {
-    return carts.filter((cart) => {
-      for (let id of cartsSelected) {
-        if (cart.id === id) {
-          return true
+    if (Array.isArray(cartsSelected)) {
+      return carts.filter((cart) => {
+        for (let id of cartsSelected) {
+          if (cart.id === id) {
+            return true
+          }
         }
-      }
-      return false
-    })
+        return false
+      })
+    } else {
+      return [cartsSelected]
+    }
   }
 
   useEffect(() => {

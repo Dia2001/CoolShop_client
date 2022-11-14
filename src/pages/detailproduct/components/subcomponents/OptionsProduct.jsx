@@ -9,7 +9,7 @@ import { ProductDetailContext } from '../../ProductDetailContext'
 
 const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, setSizeIdSelected }) => {
   const { isChange, findCategoryById, findColorById, findSizeById, findBrandById } = useContext(ProductContext)
-  const { product, quantities, getQuantityByColorIdAndSizeId } = useContext(ProductDetailContext)
+  const { product, quantities, getQuantityByColorIdAndSizeId, getQuantityByColorId, getQuantityBySizeId } = useContext(ProductDetailContext)
   const [colors, setColors] = useState([])
   const [sizes, setSizes] = useState([])
 
@@ -70,14 +70,15 @@ const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, s
                 isDisabled = true
               }
             }
-            if (product.totalQuantity === 0) {
+
+            if (product.totalQuantity === 0 || getQuantityByColorId(item.colorId) === 0) {
               isDisabled = true
             }
             return <button
               key={index}
               disabled={isDisabled}
               // style={{ background: item }}
-              className={`rounded-lg ml-2 mb-2 px-1 h-[30px] border border-Black75 w-auto ${isDisabled ? 'cursor-not-allowed' : 'hover:opacity-75'}  ${(colorIdSelected === item.colorId && !isDisabled) ? 'bg-Black75 text-white' : ''}`}
+              className={`rounded-lg ml-2 mb-2 px-1 h-[30px] border border-Black75 w-auto ${isDisabled ? 'cursor-not-allowed opacity-60' : 'hover:opacity-75'}  ${(colorIdSelected === item.colorId && !isDisabled) ? 'bg-Black75 text-white' : ''}`}
               onClick={() => handleSelectColor(item.colorId)}
             >{item.colorId}
             </button>
@@ -92,12 +93,12 @@ const OptionsProduct = ({ colorIdSelected, setColorIdSelected, sizeIdSelected, s
                 isDisabled = true
               }
             }
-            if (product.totalQuantity === 0) {
+            if (product.totalQuantity === 0 || getQuantityBySizeId(item.sizeId) === 0) {
               isDisabled = true
             }
             return <button key={index}
               disabled={isDisabled}
-              className={`h-[40px] w-[40px] rounded-full border border-Black75 ${isDisabled ? 'cursor-not-allowed' : 'hover:bg-Black10'}  ${(sizeIdSelected === item.sizeId && !isDisabled) ? 'bg-Black75 text-white' : 'text-Black75 '}`}
+              className={`h-[40px] w-[40px] rounded-full border border-Black75 ${isDisabled ? 'cursor-not-allowed opacity-60' : 'hover:bg-Black10'}  ${(sizeIdSelected === item.sizeId && !isDisabled) ? 'bg-Black75 text-white' : 'text-Black75 '}`}
               onClick={() => handleSelectSize(item.sizeId)}>
               {item.name}
             </button>

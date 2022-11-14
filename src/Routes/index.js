@@ -27,8 +27,7 @@ const publicRoutes = [
   { path: config.routes.register, component: Register, layout: DefaultLayout },
   { path: config.routes.other, component: Error, layout: DefaultLayout },
   { path: config.routes.checkoutComplete, component: SuccessOrder, layout: DefaultLayout },
-  {path: config.routes.orderDetail,component:OrderDetail,layout:DefaultLayout}
-  
+  { path: config.routes.orderDetail + '/:orderId', component: OrderDetail, layout: DefaultLayout }
 ];
 
 const privateRoutes = [
