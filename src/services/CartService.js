@@ -71,9 +71,42 @@ async function addProductToCart(productId, sizeId, colorId, quantity) {
   }
 }
 
+async function removeProductToCart(cart) {
+  try {
+    const response = await fetch(`${config.BASE_API}/carts/products`, {
+      method: 'DELETE',
+      headers: getHeaders(),
+      body: JSON.stringify(cart)
+    })
+
+    const result = await response.json()
+    if (response.status === 200) {
+      return {
+        success: true,
+        code: response.status,
+        data: result.message
+      }
+    } else {
+      return {
+        success: false,
+        code: response.status,
+        data: result.message
+      }
+    }
+
+  } catch (e) {
+    console.log(e)
+    return {
+      success: false,
+      data: e.message
+    }
+  }
+}
+
 const CartService = {
   getAll,
-  addProductToCart
+  addProductToCart,
+  removeProductToCart
 }
 
 export default CartService

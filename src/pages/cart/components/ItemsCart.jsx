@@ -32,6 +32,14 @@ const ItemsCart = ({ index, item, totalPrice, setTotalPrice }) => {
     })
   }, [quantitySelect, selected])
 
+  const handleRemoveProduct = async (cart) => {
+    const result = await CartService.removeProductToCart(cart)
+    if (result.success) {
+      setIsChange(prev => prev + 1)
+    }
+    alert(result.data)
+  }
+
   const dispatchChangeQuantity = async (quantity) => {
     const tmp = quantity - quantitySelect
 
@@ -67,13 +75,9 @@ const ItemsCart = ({ index, item, totalPrice, setTotalPrice }) => {
       <div className="absolute bottom-1 right-2 flex justify-center items-center text-center gap-2">
         <h6 className="font-bold">{item.price}</h6>
         <Tippy content={'Xóa sản phẩm'}>
-          <button className="rounded-full hover:opacity-75 text-white bg-ErrorColor p-2">
+          <button onClick={() => handleRemoveProduct(item)}
+            className="rounded-full hover:opacity-75 text-white bg-ErrorColor p-2">
             <RemoveCart size={20} />
-          </button>
-        </Tippy>
-        <Tippy content={'Thay đổi sản phẩm'}>
-          <button className="rounded-full hover:opacity-75  text-white bg-ActiveColor p-2">
-            <Modify size={20} />
           </button>
         </Tippy>
       </div>

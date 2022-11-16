@@ -5,6 +5,7 @@ export const roles = {
 
 export const orderStatus = {
   created: "Chờ xác nhận",
+  deliveredToTransporter: "Đã giao hàng cho đơn vị vận chuyển",
   confirm: "Đã xác nhận đơn hàng",
   waitForPay: "Chờ thanh toán",
   shipping: "Đang vận chuyển",

@@ -17,7 +17,7 @@ const NotificationCart = ({ setIsVisible }) => {
     >
       <div className="absolute top-[-30px] left-0 w-[70%] h-[40px]"></div>
       <div className="flex justify-between m-1x items-center">
-        <h5 className="text-DarkBlue">Giỏ hàng (1)</h5>
+        <h5 className="text-DarkBlue">Giỏ hàng ({carts.length})</h5>
         <Close onClick={() => {
           setIsVisible()
           setTmpClose(!tmpClose)

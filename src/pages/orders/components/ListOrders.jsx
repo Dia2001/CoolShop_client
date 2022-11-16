@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import config from "../../../config";
-import { enPriceVnd } from '../../../utils'
+import { enPriceVnd, fomartDateDMY } from '../../../utils'
+import Tippy from "@tippyjs/react";
+import 'tippy.js/dist/tippy.css';
 
 const ListOrders = ({ orders, typeShow }) => {
 
@@ -22,8 +24,14 @@ const ListOrders = ({ orders, typeShow }) => {
     <div className="bg-white shadow-md p-1x">
       {ordersShow.map((item, index) => (
         <div key={index} className="rounded-[12px] my-2x border border-Black75">
-          <div className=" ml-1x py-1x pr-3x w-fit mb-2x border-b border-BlackCool font-semibold">
+          <div className="flex justify-between ml-1x py-1x pr-3x w-full mb-2x border-b border-BlackCool font-semibold">
             <h6>{item.status}</h6>
+            <div className="flex gap-8">
+              <Tippy content="Nhấn để copy" onClickOutside={() => navigator.clipboard.writeText(item.orderId)}>
+                <h6 className="cursor-pointer">Mã đơn hàng: {item.orderId.slice(0, 8)}...</h6>
+              </Tippy>
+              <h6>{fomartDateDMY(item.createDate)}</h6>
+            </div>
           </div>
           {item.orderDetail.map((product, index) => (
             <div key={index} className="my-1x mx-1 shadow-sm flex gap-2">

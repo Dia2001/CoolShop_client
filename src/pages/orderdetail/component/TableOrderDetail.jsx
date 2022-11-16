@@ -23,15 +23,13 @@ const FooterInfo = ({ order }) => {
       </div>
       <div className="flex justify-between m-2x ">
         <div className="text-right">
-          {/* 
           <h6 className="my-1x">Tạm tính</h6>
-          <h6 className="my-1x">Phí vận chuyển</h6>*/}
+          <h6 className="my-1x">Phí vận chuyển</h6>
           <h6 className="my-1x font-bold">Tổng tiền</h6>
         </div>
         <div className="text-right">
-          {/*
-          <h6 className="my-1x">800.000đ</h6>
-          <h6 className="my-1x">22.000đ</h6>*/}
+          <h6 className="my-1x">{enPriceVnd(order.totalPrice)}đ</h6>
+          <h6 className="my-1x">0đ</h6>
           <h6 className="my-1x font-bold">{enPriceVnd(order.totalPrice)}đ</h6>
           <button className="w-fit py-1x px-2x bg-LightBlue rounded-[3px] hover:opacity-70 shadow-md text-white">
             Xuất đơn hàng

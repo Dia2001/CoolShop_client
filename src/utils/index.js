@@ -4,6 +4,11 @@ export function enPriceVnd(num) {
   }
 }
 
+export const fomartDateDMY = (date) => {
+  date = new Date(date);
+  return (date.getMonth() + 1) + '/' + date.getDate() + '/' + date.getFullYear();
+}
+
 export const getToken = () => localStorage.getItem("token")
 
 export const getHeaders = () => {

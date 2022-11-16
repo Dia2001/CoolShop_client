@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import imgLogo from "../../../assets/logo.png";
 import AuthService from "../../../services/AuthService";
 import { AppContext } from '../../../Providers/AppContext'
@@ -35,6 +35,26 @@ const FormLogin = () => {
       alert('Tên tài khoản hoặc mật khẩu không chính xác!')
     }
   }
+  //detect key enter
+  useEffect(() => {
+    const keyDownHandler = event => {
+      // console.log('User pressed: ', event.key);
+
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        // 👇️ your logic here
+        handleLogin();
+       
+      }
+    };
+
+    document.addEventListener('keydown', keyDownHandler);
+
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, [userName,password]);
 
   return (
     <div className="min-h-[545px] w-[425px] bg-white rounded-b-[12px] z-20">
@@ -77,7 +97,7 @@ const FormLogin = () => {
       </div>
       <div className="flex justify-center">
         <button className="px-4x py-2x bg-DarkBlue hover:opacity-75 text-white font-bold rounded-md "
-          onClick={handleLogin}>
+          onClick={handleLogin} >
           <h5>Đăng nhập</h5>
         </button>
       </div>

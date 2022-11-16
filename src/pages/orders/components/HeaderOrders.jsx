@@ -21,7 +21,7 @@ const HeaderOrders = ({ typeShow, setTypeShow }) => {
   }, [])
 
   return (
-    <div className="flex justify-between items-center my-3x px-2x py-1x rounded-sm shadow-sm bg-white">
+    <div className="flex gap-4 justify-between items-center my-3x px-2x py-1x rounded-sm shadow-sm bg-white">
       <h4 className="text-WarningColor font-bold">Đơn hàng</h4>
       <div className="flex gap-2">
         <input type="text" className="shadow-sm outline-none focus:shadow-md rounded-full w-[355px] pl-4x pr-2x py-1x" placeholder="Tìm kiếm ..." />
@@ -31,7 +31,7 @@ const HeaderOrders = ({ typeShow, setTypeShow }) => {
       </div>
       {/*select multivalues */}
       <div>
-        <h6 className="font-bold">Sắp xếp theo: </h6>
+        <h6 className="mb-1 font-bold">Sắp xếp theo: </h6>
         <select
           value={typeShow}
           className="p-2 border border-Black25"
