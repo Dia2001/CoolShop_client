@@ -15,6 +15,8 @@ const ApplicationContext = ({ children }) => {
 
   const logout = () => {
     setUserLogin(undefined)
+    setCartsSelected([])
+    setCarts([])
     setUserToken('')
   }
 
@@ -36,6 +38,10 @@ const ApplicationContext = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("token", userToken)
   }, [userToken])
+
+  useEffect(() => {
+    console.log(carts)
+  }, [])
 
   return (
     <AppContext.Provider value={{

@@ -18,6 +18,7 @@ const Header = () => {
   const { token, userLogin, carts } = useContext(AppContext);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
+  const [isShowNoticationCart, setIsShowNoticationCart] = useState(false)
   const [hoverDropdown, setHoverDropdown] = useState(false);
   const [closeTabs, setCloseTabs] = useState(false);
 
@@ -110,6 +111,11 @@ const Header = () => {
             <Link
               to={config.routes.cart}
               className="relative mx-1x py-2x px-3x text-center items-center border  border-solid border-BlackCool flex"
+              onMouseEnter={() => {
+                if (!document.baseURI.includes(config.routes.cart)) {
+                  setIsShowNoticationCart(true)
+                }
+              }}
             >
               <h6 className="absolute right-[-6px] top-[-6px] text-white bg-ActiveColor rounded-full shadow-sm px-2">
                 {carts.length}
@@ -118,7 +124,9 @@ const Header = () => {
               {/*hien thong bao khi them san pham vao! */}
               <Cart color="green" size={30} />
             </Link>
-            <NotificationCart />
+            {isShowNoticationCart ?
+              <NotificationCart setIsVisible={() => setIsShowNoticationCart(false)} />
+              : ''}
           </div>
           <Link
             to={config.routes.favorite}
