@@ -125,7 +125,9 @@ const Header = () => {
               <Cart color="green" size={30} />
             </Link>
             {isShowNoticationCart ?
-              <NotificationCart setIsVisible={() => setIsShowNoticationCart(false)} />
+              <div className="absolute left-0">
+                <NotificationCart setIsVisible={() => setIsShowNoticationCart(false)} />
+              </div>
               : ''}
           </div>
           <Link
@@ -179,7 +181,7 @@ const Header = () => {
               <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
                 Quý ông
               </h6>
-              <ArrowD />
+              <ArrowD/>
             </NavLink>
             <NavLink
               to="/san-pham-khuyen-mai"

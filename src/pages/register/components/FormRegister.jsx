@@ -49,22 +49,22 @@ const FormRegister = () => {
       navegate(config.routes.login)
     }
   }
-  // useEffect(() => {
-  //   const keyDownHandler = event => {
-  //     if (event.key === 'Enter') {
-  //       event.preventDefault();
+  useEffect(() => {
+    const keyDownHandler = event => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
 
-  //       // 👇️ your logic here
-  //       handleRegister();
-  //     }
-  //   };
+        // 👇️ your logic here
+        handleRegister();
+      }
+    };
 
-  //   document.addEventListener('keydown', keyDownHandler);
+    document.addEventListener('keydown', keyDownHandler);
 
-  //   return () => {
-  //     document.removeEventListener('keydown', keyDownHandler);
-  //   };
-  // }, []);
+    return () => {
+      document.removeEventListener('keydown', keyDownHandler);
+    };
+  }, [passwordConfirm]);//neo lai de phat hien su thay doi ma render lai
   
   const changeVerfied = (value) => {
     setVerifed(!verfied);

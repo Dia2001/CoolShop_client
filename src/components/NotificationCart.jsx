@@ -9,11 +9,20 @@ import config from "../config";
 const NotificationCart = ({ setIsVisible }) => {
   const { carts } = useContext(AppContext)
   const [tmpClose, setTmpClose] = useState(false);
+  let countItem=0;
+  const hiddenItem=(index)=>{
+    if(index>1){
+      countItem++;
+      return 'hidden';
+    }
+    else
+      return '';
+  }
   return (
     <div
       onMouseLeave={setIsVisible}
-      className={`absolute ${tmpClose && "hidden"
-        } block w-[250px] min-h-[255px] bg-white/90 left-0 bottom-[-280px] border border-BlackCool shadow-md z-30`}
+      className={` ${tmpClose && "hidden"
+        } w-[250px] min-h-[255px] bg-white/90 mt-2x border border-BlackCool shadow-md z-30`}
     >
       <div className="absolute top-[-30px] left-0 w-[70%] h-[40px]"></div>
       <div className="flex justify-between m-1x items-center">
@@ -25,10 +34,10 @@ const NotificationCart = ({ setIsVisible }) => {
         } size={30} />
       </div>
       <div className="h-[24px] w-[95%] mx-auto border-b-2 border-BlackCool"></div>
-      <div className="max-h-32 overflow-y-auto">
+      <div className="min-h-32">
         {Array.isArray(carts) && carts.length > 0 ? carts.map((item, index) => {
           return (
-            <div className="flex m-2x gap-2" key={index}>
+            <div className={`${hiddenItem(index)} flex m-2x gap-2`} key={index}>
               <img
                 src={item.img}
                 alt="Ảnh sản phẩm"
@@ -53,6 +62,7 @@ const NotificationCart = ({ setIsVisible }) => {
             Trống
           </div>}
       </div>
+      <div className="flex justify-center font-semibold"><h6>{countItem>0&&'+'+countItem}</h6></div>
       <div className="h-[8px] w-[40%] mx-auto border-b border-BlackCool"></div>
       <div className="flex justify-center">
         <Link to={config.routes.cart}

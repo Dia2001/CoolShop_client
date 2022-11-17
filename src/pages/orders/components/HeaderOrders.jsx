@@ -21,8 +21,9 @@ const HeaderOrders = ({ typeShow, setTypeShow }) => {
   }, [])
 
   return (
-    <div className="flex gap-4 justify-between items-center my-3x px-2x py-1x rounded-sm shadow-sm bg-white">
+    <div className="bg-white p-1x">
       <h4 className="text-WarningColor font-bold">Đơn hàng</h4>
+    <div className="flex gap-4 justify-between items-center px-2x py-1x rounded-sm shadow-sm bg-white">  
       <div className="flex gap-2">
         <input type="text" className="shadow-sm outline-none focus:shadow-md rounded-full w-[355px] pl-4x pr-2x py-1x" placeholder="Tìm kiếm ..." />
         <button className="p-1x text-center rounded-full hover:shadow-md h-[45px] w-[45px] border border-Black10">
@@ -42,6 +43,7 @@ const HeaderOrders = ({ typeShow, setTypeShow }) => {
           ))}
         </select>
       </div>
+    </div>
     </div>
   )
 }
