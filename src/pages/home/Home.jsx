@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import heroImg from "../../assets/hero-img.png";
 import galleryImg1 from '../../assets/galleryimg/gallery-1.jpg';
@@ -17,16 +17,33 @@ import OtherItems from "./components/OtherItems";
 import Promotions from "./components/Promotions";
 import Statement from "./components/Statement";
 import useCarts from "../../hooks/useCarts";
+import ProductService from "../../services/ProductService";
 
 const Home = () => {
   const [mainImg, setMainImg] = useState(galleryImg1);
+  const [topCategories, setTopCategories] = useState([])
+  const isFetch = useRef(false)
 
   useCarts()
 
+  useEffect(() => {
+    if (!isFetch.current) {
+      fetchApiGetTopCatetories()
+    }
+  }, [])
   const getValueHandler = (event) => {
     const newImg = event.target.src;
     setMainImg(newImg);
   };
+
+  const fetchApiGetTopCatetories = async () => {
+    isFetch.current = true
+    const result = await ProductService.listofcategoriesandfeaturedproducts()
+    if (result.success) {
+      setTopCategories(result.data)
+    }
+    isFetch.current = false
+  }
 
   return (
     <div className="min-h-[100vh]">
@@ -56,9 +73,9 @@ const Home = () => {
       <hr className="max-w-[1240px] mx-auto" />
       <div className="mt-3x text-center">
         <h3 className="font-bold mt-2x mb-4x">Sản phẩm nổi bật &amp;</h3>
-        <SlideImgs role="Nam" />
-        <SlideImgs role="Nữ" />
-        <SlideImgs role="Quý ông" />
+        {topCategories.map((category, index) =>
+          <SlideImgs key={index} data={category} />
+        )}
         <div className="flex justify-center w-[1240px] h-[600px] mx-auto gap-4 m-1x">
           <div className="basis-2/5">
             <img src={mainImg} className="object-cover object-top w-full h-full transition" alt="Ảnh lớn" />

@@ -13,9 +13,12 @@ import HoverDropdown from "./HoverDropdown";
 import { AppContext } from "../Providers/AppContext";
 import useCarts from "../hooks/useCarts";
 import config from "../config";
+import { ProductContext } from "../Providers/ProductContext";
 
 const Header = () => {
   const { token, userLogin, carts } = useContext(AppContext);
+  const { isChange, categories } = useContext(ProductContext)
+  const [categoriesShow, setCategoriesShow] = useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
   const [isShowNoticationCart, setIsShowNoticationCart] = useState(false)
@@ -23,6 +26,13 @@ const Header = () => {
   const [closeTabs, setCloseTabs] = useState(false);
 
   useCarts();
+
+  useEffect(() => {
+    console.log(categories)
+    if (categories.length > 0)  {
+
+    }
+  }, [isChange])
 
   const enterHandler = () => {
     setIsShowPanel(true);
@@ -181,7 +191,7 @@ const Header = () => {
               <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
                 Quý ông
               </h6>
-              <ArrowD/>
+              <ArrowD />
             </NavLink>
             <NavLink
               to="/san-pham-khuyen-mai"

@@ -39,10 +39,6 @@ const ApplicationContext = ({ children }) => {
     localStorage.setItem("token", userToken)
   }, [userToken])
 
-  useEffect(() => {
-    console.log(carts)
-  }, [])
-
   return (
     <AppContext.Provider value={{
       token: userToken,
