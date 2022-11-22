@@ -21,6 +21,7 @@ const Header = () => {
   const [categoriesShow, setCategoriesShow] = useState([])
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isShowPanel, setIsShowPanel] = useState(false);
+  const [categoriesPanel, setCategoriesPanel] = useState([])
   const [isShowNoticationCart, setIsShowNoticationCart] = useState(false)
   const [hoverDropdown, setHoverDropdown] = useState(false);
   const [closeTabs, setCloseTabs] = useState(false);
@@ -28,13 +29,46 @@ const Header = () => {
   useCarts();
 
   useEffect(() => {
-    console.log(categories)
-    if (categories.length > 0)  {
+    if (categories.length > 0) {
+      let categoriesShowTmp = []
+      for (let category of categories) {
+        if (category.parentId === null) {
+          category.categories = []
+          for (let categoryTmp of categories) {
+            if (categoryTmp.parentId === category.categoryId) {
+              category.categories.push(categoryTmp)
+            }
+          }
+          categoriesShowTmp.push(category)
+        }
+      }
+      categoriesShowTmp = categoriesShowTmp.map(item =>
+        recursiveCategories(item, categories)
+      )
 
+      setCategoriesShow(categoriesShowTmp)
     }
   }, [isChange])
 
-  const enterHandler = () => {
+  const recursiveCategories = (category, categoriesRoot) => {
+    category.categories = []
+    for (let categoryTmp of categoriesRoot) {
+      if (category.categoryId === categoryTmp.parentId) {
+        category.categories.push(categoryTmp)
+      }
+    }
+
+    category.categories = category.categories.map(item =>
+      recursiveCategories(item, categoriesRoot)
+    )
+
+    return category
+  }
+
+  const enterHandler = (categories) => {
+    if (categories) {
+      setCategoriesPanel(categories)
+    }
     setIsShowPanel(true);
     setCloseTabs(false);
   };
@@ -163,36 +197,21 @@ const Header = () => {
             >
               <h6 className="font-semibold ml-4 mr-4">Trang chủ</h6>
             </NavLink>
-            <NavLink
-              to={config.routes.product}
-              onMouseEnter={enterHandler}
-              className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
-            >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
-                Nam
-              </h6>
-              <ArrowD />
-            </NavLink>
-            <NavLink
-              to={config.routes.product}
-              onMouseEnter={enterHandler}
-              className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
-            >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
-                Nữ
-              </h6>
-              <ArrowD />
-            </NavLink>
-            <NavLink
-              to={config.routes.product}
-              onMouseEnter={enterHandler}
-              className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
-            >
-              <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
-                Quý ông
-              </h6>
-              <ArrowD />
-            </NavLink>
+            {categoriesShow.map((category, index) => {
+              return (
+                <NavLink
+                  key={index}
+                  to={config.routes.product + "?c=" + category.name}
+                  onMouseEnter={() => enterHandler(category.categories)}
+                  className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
+                >
+                  <h6 onClick={CloseTabsHandler} className="font-semibold ml-4">
+                    {category.name}
+                  </h6>
+                  <ArrowD />
+                </NavLink>
+              )
+            })}
             <NavLink
               to="/san-pham-khuyen-mai"
               onMouseEnter={leaveHandler}
@@ -215,7 +234,7 @@ const Header = () => {
       </div>
       {/* <div className={`${!isShowPanel&&"hidden"} flex absolute w-full left-0 h-[350px] bg-white justify-between z-20`}> */}
       <div
-        onMouseEnter={enterHandler}
+        onMouseEnter={() => enterHandler()}
         onMouseLeave={leaveHandler}
         className={`${!isShowPanel && "hidden"
           } flex absolute w-full left-0 h-[460px] bg-white justify-around p-2x  z-20`}
@@ -226,34 +245,19 @@ const Header = () => {
         ></div>
         <div className="flex flex-col flex-wrap text-center">
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
-            <h6 className="font-bold">Áo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <br />
-          </div>
-          <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
-            <h6 className="font-bold">Đồ thể thao</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <br />
-          </div>
-          <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
-            <h6 className="font-bold">Áo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <h6>AoDaiBo</h6>
-            <br />
+            {(Array.isArray(categoriesPanel) && categoriesPanel.length > 0) ? categoriesPanel.map((category) =>
+              <>
+                <Link key={category.categoryId} to={config.routes.product + "?c=" + category.name} >
+                  <h6 className="font-bold">{category.name}</h6>
+                </Link>
+                {Array.isArray(category.categories) ? category.categories.map(categoryChild =>
+                  <Link key={categoryChild.categoryId} to={config.routes.product + "?c=" + categoryChild.name} >
+                    <h6 className="font-normal">{categoryChild.name}</h6>
+                  </Link>
+                ) : ''}
+                <br />
+              </>
+            ) : ''}
           </div>
         </div>
         <div></div>
