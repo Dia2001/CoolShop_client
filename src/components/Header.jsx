@@ -257,7 +257,7 @@ const Header = () => {
                 ) : ''}
                 <br />
               </>
-            ) : ''}
+            ) : 'Danh mục này không có danh mục con!'}
           </div>
         </div>
         <div></div>

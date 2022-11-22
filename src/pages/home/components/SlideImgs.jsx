@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import modelImg from "../../../assets/model-img.png";
 import {
   MdOutlineArrowBackIosNew as ArrowLeft,
@@ -11,6 +11,10 @@ import { Link } from "react-router-dom";
 const SlideImgs = ({ data }) => {
   const [isHover, setIsHover] = useState(false);
   const [imageSlide, setImageSlide] = useState(modelImg)
+  const baseWidthProductCart = 254
+  const [marginSlide, setMarginSlide] = useState(0)
+  const quantiy = useRef(0)
+  const [position, setPosition] = useState(0)
 
   const mouseEnterHandler = () => {
     setIsHover(true);
@@ -19,6 +23,7 @@ const SlideImgs = ({ data }) => {
   useEffect(() => {
     if (data && data.product.length > 0) {
       setImageSlide(config.urlImageProduct + data.product[0].image)
+      quantiy.current = data.product.length
     }
   }, [data])
 
@@ -27,16 +32,29 @@ const SlideImgs = ({ data }) => {
     setIsHover(false);
   };
   const turnLeft = () => {
-
-
+    console.log(quantiy.current, position)
+    if (quantiy.current === 3) {
+      return
+    } else if (position === 0) {
+      setPosition(quantiy.current)
+    } else {
+      setPosition(prev => prev - 1)
+    }
   };
   const turnRight = () => {
-
+    console.log(quantiy.current, position)
+    if (quantiy.current === 3) {
+      return
+    } else if (position === quantiy.current) {
+      setPosition(0)
+    } else {
+      setPosition(prev => prev + 1)
+    }
   };
   if (data)
     return (
       <Link to={config.routes.product + `?c=${data.name}`} >
-        <div className="flex w-[1240px] mx-auto pb-5x">
+        <div className="flex w-[1240px] mx-auto mb-5x">
           <div className="relative overflow-hidden basis-1/4">
             <img
               onMouseEnter={mouseEnterHandler}
@@ -54,13 +72,17 @@ const SlideImgs = ({ data }) => {
               <h6 className="font-bold">Xem tất cả</h6>
             </button>
           </div>
-          <div className="basis-3/4 overflow-hidden">
+          <div className="basis-3/4">
             <div className="w-full text-left block">
               <h5 className="font-bold italic">Thời trang {data.name}</h5>
             </div>
             <div className="relative h-full overflow-hidden w-[835px] mx-auto">
               <div
-                onClick={turnLeft}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  e.preventDefault()
+                  turnLeft()
+                }}
                 className="absolute h-full  left-0 items-center flex justify-center"
               >
                 <ArrowLeft
@@ -70,7 +92,11 @@ const SlideImgs = ({ data }) => {
                 />
               </div>
               <div
-                onClick={turnRight}
+                onClick={(e) => {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  turnRight()
+                }}
                 className="absolute h-full right-0 items-center flex justify-center"
               >
                 <ArrowRight
@@ -89,7 +115,12 @@ const SlideImgs = ({ data }) => {
             <CardImg no={5} />
             <CardImg no={5} />
             <CardImg no={5} /> */}
-                <div id="carousel-container" className="flex gap-2 transition">
+                <div id="carousel-container"
+                  className={`transition-all flex gap-2`}
+                  style={{ marginLeft: `-${baseWidthProductCart * position}px` }}>
+                  {data.product.map((product, index) => (
+                    <CardProductV2 key={index} product={product} />
+                  ))}
                   {data.product.map((product, index) => (
                     <CardProductV2 key={index} product={product} />
                   ))}
