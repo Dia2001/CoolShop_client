@@ -14,6 +14,7 @@ function Orders() {
 
   useEffect(() => {
     getOrders()
+    document.title = 'Đơn hàng - CoolShop'
   }, [isChange])
 
   const getOrders = async () => {

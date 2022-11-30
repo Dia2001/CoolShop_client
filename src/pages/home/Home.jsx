@@ -30,6 +30,7 @@ const Home = () => {
     if (!isFetch.current) {
       fetchApiGetTopCatetories()
     }
+    document.title = 'Trang chủ - CoolShop'
   }, [])
   const getValueHandler = (event) => {
     const newImg = event.target.src;

@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import imgError from "../../assets/error-page.svg";
 const Error = () => {
+  document.title = 'Error - CoolShop'
   return (
     <div className="h-[100vh] bg-Black5 flex justify-center items-center">
       <div className="w-[610px] bg-white shadow-sm">

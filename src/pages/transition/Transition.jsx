@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import config from "../../config";
 
 const Transition = () => {
+  document.title = 'Thanh toán - CoolShop'
   const navigate = useNavigate()
   const { userLogin, getCartPayment } = useContext(AppContext)
   const [listProduct, setListProduct] = useState([])

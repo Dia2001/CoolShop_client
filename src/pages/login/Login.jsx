@@ -3,6 +3,9 @@ import FormLogin from "./components/FormLogin";
 import ImgDecoration from "./components/ImgDecoration";
 import imgClothes from "../../assets/clothes.jpg";
 const Login = () => {
+
+  document.title = 'Đăng nhập - CoolShop'
+
   return (
     <div
       style={{ backgroundImage: `url(${imgClothes})` }}

@@ -12,6 +12,7 @@ const SuccessOrder = () => {
     setTimeout(() => {
       navigate(config.routes.history);
     }, 11000);
+    document.title = 'Đặt hàng thành công - CoolShop'
   }, []);
 
   useEffect(() => {

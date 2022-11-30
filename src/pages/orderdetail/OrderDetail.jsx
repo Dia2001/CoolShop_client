@@ -16,6 +16,7 @@ const OrderDetail = () => {
 
   useEffect(() => {
     fetchApiOrder()
+    document.title = 'Chi tiết đơn - CoolShop'
   }, [isChange])
 
   const fetchApiOrder = async () => {

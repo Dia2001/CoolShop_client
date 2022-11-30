@@ -13,6 +13,8 @@ const Cart = () => {
   const [totalPrices, setTotalPrices] = useState([])
   const [checkAll, setCheckAll] = useState({ s: 0, c: false })
 
+  document.title = 'Giỏ hàng - CoolShop'
+
   const handleCheckout = () => {
     let ids = []
     for (let index in totalPrices) {

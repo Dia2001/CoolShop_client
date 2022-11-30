@@ -6,7 +6,7 @@ import { CgShoppingCart as Cart } from "react-icons/cg";
 import { MdFavoriteBorder as Favorite } from "react-icons/md";
 import { MdKeyboardArrowDown as ArrowD } from "react-icons/md";
 import imgModel from "../assets/anh-mau.jpg";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import MenuProfile from "./MenuProfile";
 import NotificationCart from "./NotificationCart";
 import HoverDropdown from "./HoverDropdown";
@@ -16,6 +16,7 @@ import config from "../config";
 import { ProductContext } from "../Providers/ProductContext";
 
 const Header = () => {
+  const navigate = useNavigate()
   const { token, userLogin, carts } = useContext(AppContext);
   const { isChange, categories } = useContext(ProductContext)
   const [categoriesShow, setCategoriesShow] = useState([])
@@ -25,6 +26,7 @@ const Header = () => {
   const [isShowNoticationCart, setIsShowNoticationCart] = useState(false)
   const [hoverDropdown, setHoverDropdown] = useState(false);
   const [closeTabs, setCloseTabs] = useState(false);
+  const [searchValue, setSearchValue] = useState('')
 
   useCarts();
 
@@ -50,6 +52,13 @@ const Header = () => {
     }
   }, [isChange])
 
+  useEffect(() => {
+    const regex = /q=/gm
+    if (!regex.test(document.location.search)) {
+      setSearchValue('')
+    }
+  }, [document.location.search])
+
   const recursiveCategories = (category, categoriesRoot) => {
     category.categories = []
     for (let categoryTmp of categoriesRoot) {
@@ -63,6 +72,10 @@ const Header = () => {
     )
 
     return category
+  }
+
+  const handleSearch = () => {
+    navigate(config.routes.product + "?q=" + searchValue)
   }
 
   const enterHandler = (categories) => {
@@ -106,12 +119,13 @@ const Header = () => {
         </Link>
         <div className="search m-2x flex gap-2 items-center">
           <input
-            type="text"
-            name="search"
+            type="text" value={searchValue}
+            name="search" onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Tìm kiếm sản phẩm ..."
             className="rounded-full pl-3x py-1x shadow-lg w-[430px] h-[40px]"
           />
-          <button className="p-1x text-center rounded-full hover:shadow-md h-[45px] w-[45px] border border-Black10">
+          <button onClick={handleSearch}
+            className="p-1x text-center rounded-full hover:shadow-md h-[45px] w-[45px] border border-Black10">
             <BsSearch size={30} />
           </button>
         </div>
@@ -197,11 +211,18 @@ const Header = () => {
             >
               <h6 className="font-semibold ml-4 mr-4">Trang chủ</h6>
             </NavLink>
+            <NavLink
+              to="/san-pham"
+              onMouseEnter={leaveHandler}
+              className="relative flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
+            >
+              <h6 className="font-semibold mx-4">Tất cả</h6>
+            </NavLink>
             {categoriesShow.map((category, index) => {
               return (
                 <NavLink
                   key={index}
-                  to={config.routes.product + "?c=" + category.name}
+                  to={config.routes.product + "?c=" + category.categoryId}
                   onMouseEnter={() => enterHandler(category.categories)}
                   className="flex gap-1 border-b border-BlackCool hover:border-DarkBlue hover:border-b-2"
                 >
@@ -247,11 +268,11 @@ const Header = () => {
           <div className="border-t border-Black5 min-w-[160px] min-h-[150px]">
             {(Array.isArray(categoriesPanel) && categoriesPanel.length > 0) ? categoriesPanel.map((category) =>
               <>
-                <Link key={category.categoryId} to={config.routes.product + "?c=" + category.name} >
+                <Link key={category.categoryId} to={config.routes.product + "?c=" + category.categoryId} >
                   <h6 className="font-bold">{category.name}</h6>
                 </Link>
                 {Array.isArray(category.categories) ? category.categories.map(categoryChild =>
-                  <Link key={categoryChild.categoryId} to={config.routes.product + "?c=" + categoryChild.name} >
+                  <Link key={categoryChild.categoryId} to={config.routes.product + "?c=" + categoryChild.categoryId} >
                     <h6 className="font-normal">{categoryChild.name}</h6>
                   </Link>
                 ) : ''}

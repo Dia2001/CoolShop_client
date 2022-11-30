@@ -53,7 +53,7 @@ const SlideImgs = ({ data }) => {
   };
   if (data)
     return (
-      <Link to={config.routes.product + `?c=${data.name}`} >
+      <Link to={config.routes.product + `?c=${data.categoryId}`} >
         <div className="flex w-[1240px] mx-auto mb-5x">
           <div className="relative overflow-hidden basis-1/4">
             <img

@@ -5,7 +5,7 @@ const getHeaders = () => {
   }
 }
 
-async function getFilter({ ...filter }) {
+async function getFilter(filter) {
   let queryParams = '?'
 
   for (let param in filter) {

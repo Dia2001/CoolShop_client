@@ -30,7 +30,7 @@ const DetailProduct = () => {
 
     if (result.success) {
       setProduct(result.data)
-      document.title = result.data.name
+      document.title = result.data.name + ' - CoolShop'
       const resultQuantity = await ProductService.getQuantityProductById(result.data.productId)
       const resultGallery = await GalleryService.getAllGalleryInProductById(result.data.productId)
 
